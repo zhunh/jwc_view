@@ -18,11 +18,15 @@ export default {
     value: {
       type: String,
       default: '2018'
+    },
+    allDisabled:{
+      type:Boolean,
+      default:false
     }
   },
   data() {
     return {
-      options: ['2018', '2017', '2016','all']
+      options: this.allDisabled?['2018', '2017', '2016']:['2018', '2017', '2016','all']
     }
   },
   computed: {

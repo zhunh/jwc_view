@@ -39,7 +39,7 @@
           <el-table-column prop="major_name" label="专业名称"></el-table-column>
           <el-table-column prop="major_code" label="专业代码"></el-table-column>
           <el-table-column prop="postgraduate_count" label="考研人数"></el-table-column>
-          <el-table-column prop="postgraduate_rate" label="考研率" :sortable="true">
+          <el-table-column label-class-name="warning-row" prop="postgraduate_rate" label="考研率" :sortable="true">
               <!-- <template slot-scope="scope">
               <el-progress stroke-width="10" :text-inside="true" :percentage="scope.row.postgraduate_rate"></el-progress>
               </template> -->

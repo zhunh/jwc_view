@@ -31,20 +31,19 @@
           :fit="true"
           tooltip-effect="dark"
           size="small"
-          
           style="width: 100%"
         >
           <el-table-column type="selection" fixed="left"></el-table-column>
           <el-table-column type="index" fixed="left"></el-table-column>
           <el-table-column prop="major_name" label="专业名称"></el-table-column>
           <el-table-column prop="major_code" label="专业代码"></el-table-column>
-          <el-table-column prop="major_convert_count" label="调剂人数"></el-table-column>
-          <el-table-column label-class-name="warning-row" prop="major_convert_rate" label="调剂率" :sortable="true">
-              <!-- <template slot-scope="scope">
-              <el-progress stroke-width="10" :text-inside="true" :percentage="scope.row.postgraduate_rate"></el-progress>
-              </template> -->
+          <el-table-column label-class-name="success-row" prop="research_paper" label="教改论文" :sortable="true">
           </el-table-column>
-          <el-table-column prop="year" label="年份"></el-table-column>
+          <el-table-column prop="year" label="年份"
+          :filters="[{text:'2019',value:'2019'},{text:'2018',value:'2018'},{text:'2017',value:'2017'}]"
+          :filter-method="filterHandler"
+          filter-placement="bottom-end"
+          ></el-table-column>
           <el-table-column prop="post_time" label="填报时间" :sortable="true"></el-table-column>
           <el-table-column prop="poster" label="填报人"></el-table-column>
           <el-table-column prop="remarks" label="备注" width="110"></el-table-column>
@@ -99,18 +98,15 @@ export default {
       checkLook: {},
       searchKey:'',
       page: {
-        selectYear:'all',
         key:'',
         pageSize: 10,
         total: 20,
-        currentPage: 1
-        //pageCount: 1
+        currentPage: 1,
+        selectYear: 'all'
       }
     };
   },
-  components:{
-    SelectYear
-  },
+  components:{ SelectYear },
   methods: {
     handleClick(obj) {
       this.dialogVisible = true;
@@ -128,14 +124,17 @@ export default {
     nextClick(nc) {
       this.page.currentPage = nc;
     },
+    filterHandler(value, row, column) {
+      const property = column['property'];
+      return row[property] === value;
+    }, 
     // 获取表格数据
     getData(){
       this.loading = true;
-      axios.get(process.env.VUE_APP_APIURL + "/mcr/query",{
+      axios.get(process.env.VUE_APP_APIURL + "/rp/query",{
         params: this.page,
         headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
       }).then(data => {
-        //   console.log(data.data)
         this.tableData = data.data.data.result;
         this.page.total = data.data.data.total;
         this.loading = false;

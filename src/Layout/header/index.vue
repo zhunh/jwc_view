@@ -7,23 +7,13 @@
         @select="handleSelect"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">
-            <router-link to="/" tag="span">首页</router-link>
+        active-text-color="#ffd04b"
+        router>
+        <el-menu-item index="/">首页
         </el-menu-item>
-        <el-menu-item index="2">
-          <router-link to="/summary" tag="span">
-          数据汇总
-          </router-link>
-        </el-menu-item>
-        <el-menu-item index="3">
-            <router-link to="/major/" tag="span">基本状态数据库中心</router-link>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <router-link to="/dataIn" tag="span">
-          数据采集
-          </router-link>
-        </el-menu-item> 
+        <el-menu-item index="/summary">数据汇总</el-menu-item>
+        <el-menu-item index="/major/">基本状态数据库中心</el-menu-item>
+        <el-menu-item index="/dataIn">数据采集</el-menu-item> 
         <el-menu-item index="5" disabled>消息中心</el-menu-item>
         <el-menu-item index="6">用户管理</el-menu-item>    
         <!-- <el-submenu index="3">
