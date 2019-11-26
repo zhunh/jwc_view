@@ -3,14 +3,14 @@
     <!--操作栏-->
     <el-row>
       <el-col :span="12" class="grid" :offset="0">
-        <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-        <el-button type="warning" icon="el-icon-share" size="mini"></el-button>
+        <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button> -->
+        <el-button type="primary" @click="fresh" icon="el-icon-refresh-right" size="mini">刷新</el-button>
         <el-button type="info" icon="el-icon-delete" size="mini"></el-button>
-        <el-button type="danger" icon="el-icon-download" size="mini">导出</el-button>
+        <!-- <el-button type="danger" icon="el-icon-download" size="mini">导出</el-button>
         <el-button type="primary" size="mini">
           上传
           <i class="el-icon-upload el-icon--right"></i>
-        </el-button>
+        </el-button> -->
       </el-col>
       <el-col :span="12" class="grid" :offset="0">
         <el-form ref="searchForm" style="float:right;">
@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { fetchList } from "@/api/employmentRate";
 import SelectYear from "@/components/SelectYear"
 export default {
   data() {
@@ -135,23 +135,21 @@ export default {
     // 获取表格数据
     getData(){
       this.loading = true;
-      axios.get(process.env.VUE_APP_APIURL + "/er/query",{
-        params: this.page,
-        headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
-      }).then(data => {
-        this.tableData = data.data.data.result;
-        this.page.total = data.data.data.total;
+      fetchList(this.page).then((data)=>{
+        this.tableData = data.result.result;
+        this.page.total = data.result.total;
         this.loading = false;
       }).catch((err)=>{
-        this.$message({
-          message: err.message,
-          type: 'error'       
-        });
-        this.loading = false;
-      });      
+        console.log(err)
+        this.loading = false
+      })
     },
     search(){
       this.page.key = this.searchKey.trim()
+    },
+    fresh(){
+      // this.$router.replace('/major/er')
+      window.location.reload()
     }
   },
   watch: {

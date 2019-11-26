@@ -1,68 +1,37 @@
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-    :row-class-name="tableRowClassName">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-    label-class-name="warning-row"
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
+  <div>
+    <h1>仓库中 name 为：{{ name }}</h1>
+    <button @click="setNameSync({ newName: 'yu'})">点击修改name</button>
+  </div>
 </template>
 
-<style>
-  .el-table .warning-row {
-    background: oldlace;
-  }
-
-  .el-table .success-row {
-    background: #f0f9eb;
-  }
-</style>
-
 <script>
-  export default {
-    methods: {
-      tableRowClassName({rowIndex}) {
-        if (rowIndex === 1) {
-          return 'warning-row';
-        } else if (rowIndex === 3) {
-          return 'success-row';
-        }
-        return '';
-      }
-    },
-    data() {
-      return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }]
+// 1.引入辅助函数
+import { mapState, mapMutations, mapActions } from 'vuex'
+export default {
+  // 2.定义计算属性
+  computed: {
+    ...mapState(["name"]),
+    list01: function(){
+      return ["sd","df"]
+    }
+  },
+  methods:{
+    ...mapMutations(["setName"]),
+    // 上式展开如下：
+    // setName(name){
+    //   this.$store.commit({
+    //     type:'setName',
+    //     newName:name
+    //   })
+    // }
+    ...mapActions(["setNameSync"]),
+    // 上式展开如下：
+    ...{
+      setNameSync(obj){
+        this.$store.dispatch("setNameSync",obj)
       }
     }
   }
+}
 </script>

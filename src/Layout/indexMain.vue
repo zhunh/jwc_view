@@ -1,13 +1,15 @@
 <template>
     <el-container style="height:100%;border: 1px solid #eee;height:calc(100vh - 61px);">
-        <el-aside width="200px">
+        <el-aside width="auto">
             <!-- Aside -->
             <Siderbar />
         </el-aside>
         <el-container direction="vertical">
             <el-main>
                 <!-- Main -->
+                <el-card>
                 <router-view/>
+                </el-card>
             </el-main>     
         </el-container>
     </el-container>

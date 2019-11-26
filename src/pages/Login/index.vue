@@ -1,9 +1,9 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :style="bgStyle">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">基本状态数据库中心</h3>
+        <h3 class="title">专业基本状态数据库</h3>
       </div>
 
       <el-form-item prop="username">
@@ -53,7 +53,7 @@
 </template>
 <script>
 import axios from 'axios'
-console.log(process.env)
+// console.log(process.env)
 export default {
     data(){
         return{
@@ -67,6 +67,13 @@ export default {
             },
             loading: false,
             passwordType: 'password',
+            bgStyle:{
+                height: '100vh',
+                width: '100%',
+                backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "100% auto",
+            }
         }
     },
     methods: {

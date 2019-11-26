@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {fetchList, deleteMany} from "@/api/majorDetail";
 import BookType from '@/components/ExportBookType'
 import FileName from '@/components/ExportFileName'
 export default {
@@ -152,41 +152,23 @@ export default {
     // 获取表格数据
     getData(){
       this.loading = true;
-      axios.get(process.env.VUE_APP_APIURL + "/table/query",{
-        params: this.page,
-        headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
-      }).then(data => {
-        this.tableData = data.data.data.result;
-        this.page.total = data.data.data.total;
-        this.loading = false;
-      }).catch((err)=>{
-        this.$message({
-          message: err.message,
-          type: 'error'       
-        });
-        this.loading = false;
-      });      
+      fetchList(this.page).then((data)=>{
+        this.tableData = data.result.result;
+        this.page.total = data.result.total;
+        this.loading = false;        
+      })    
     },
     deleteRows(){
       this.loading = true;
-      axios.post(process.env.VUE_APP_APIURL+'/table/delete',{
-        ids: this.deleteSelection,
-        headers: {'AccessToken': sessionStorage.getItem('jwctoken')},        
-      }).then((res)=>{
-        console.log(res);
-        if(res.data.code==0){
+      deleteMany(this.deleteSelection).then((res)=>{
+        if(res.code==90000){
           this.$message({
-            message:res.data.msg,
+            message:res.msg,
             type:'success'
           })
+          this.loading = false;
           this.getData()
-        }
-      }).catch((err)=>{
-        this.loading = false
-        this.$message({
-          message:err.message,
-          type:'error'
-        })
+        }    
       })
     },
     search(){

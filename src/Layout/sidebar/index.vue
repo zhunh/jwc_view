@@ -2,11 +2,18 @@
     <div>
     <el-menu
       default-active="3"
-      class="el-menu-vertical-demo"
+      class="el-menu-test"
+      :collapse="isCollapse"
       :default-openeds='["1"]'
       @open="handleOpen"
       @close="handleClose"
+      active-text-color="red"
       router>
+      <el-menu-item @click="isCollapse=!isCollapse">
+        <i v-if="isCollapse" class="el-icon-s-unfold"></i>
+        <i v-else class="el-icon-s-fold"></i>
+        <span slot="title">展开/折叠</span>
+      </el-menu-item>       
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-s-promotion"></i>
@@ -34,17 +41,28 @@
       </el-menu-item>
       <el-menu-item index="/major/condition">
         <i class="el-icon-wind-power"></i>
-        <span slot="title">专业基本条件
-        </span>
+        <span slot="title">专业基本条件</span>
       </el-menu-item>      
       <el-menu-item index="/major/calendar">
-        <i class="el-icon-date"></i>教学日历
+        <i class="el-icon-date"></i>
+        <span slot="title">教学日历</span>
       </el-menu-item>        
     </el-menu>
     </div>
 </template>
+<style>
+  .el-menu-test:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
+</style>
 <script>
 export default {
+  data(){
+    return {
+      isCollapse:false
+    }
+  },
   methods:{
     handleOpen(){
 

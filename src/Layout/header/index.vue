@@ -12,7 +12,7 @@
         <el-menu-item index="/">首页
         </el-menu-item>
         <el-menu-item index="/summary">数据汇总</el-menu-item>
-        <el-menu-item index="/major/">基本状态数据库中心</el-menu-item>
+        <el-menu-item index="/major/">专业基本状态数据</el-menu-item>
         <el-menu-item index="/dataIn">数据采集</el-menu-item> 
         <el-menu-item index="5" disabled>消息中心</el-menu-item>
         <el-menu-item index="6">用户管理</el-menu-item>    

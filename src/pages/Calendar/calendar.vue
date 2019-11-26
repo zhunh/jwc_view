@@ -1,8 +1,6 @@
 <template>
     <div>
-        <el-card shadow="hover">
-            <el-calendar v-model="value"></el-calendar>
-        </el-card>
+        <el-calendar v-model="value"></el-calendar>
     </div>
 </template>
 

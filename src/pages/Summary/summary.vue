@@ -37,15 +37,19 @@
                     <el-table-column prop="associate_professor" label="副高"></el-table-column>
                     <el-table-column prop="value_of_equipment" width="100" label="仪器设备总值"></el-table-column>
                     <el-table-column prop="year" label="年份"></el-table-column>
-                    <el-table-column label-class-name="warning-row" label="培养质量">
-                    <el-table-column label-class-name="warning-row" prop="er.employment_rate" width="100" label="就业率" :sortable="true"></el-table-column>
-                    <el-table-column label-class-name="warning-row" prop="mcr.major_convert_rate" label="调剂率"></el-table-column>
-                    <el-table-column label-class-name="warning-row" prop="pr.postgraduate_rate" label="考研率" width="110"></el-table-column>
+                    <el-table-column label="培养质量">
+                    <el-table-column prop="er.employment_rate" width="100" label="就业率" :sortable="true"></el-table-column>
+                    <el-table-column prop="mcr.major_convert_rate" label="调剂率"></el-table-column>
+                    <el-table-column prop="pr.postgraduate_rate" label="考研率" width="110"></el-table-column>
                     </el-table-column>
-                    <el-table-column label-class-name="warning-row" prop="rp.research_paper" label="教改论文" width="110"></el-table-column>
-                    <el-table-column label-class-name="warning-row" prop="tpp.teaching_project_province_num" label="主持省级以上教研项目" width="110"></el-table-column>
-                    <el-table-column label-class-name="warning-row" prop="ep.engineering_project_num" label="主持省级以上本科教学工程" width="110"></el-table-column>       
-                    <el-table-column label-class-name="warning-row" prop="ta.teaching_achievement_award" label="近十年教学成果奖" width="110"></el-table-column>                                              
+                    <el-table-column prop="rp.research_paper" label="教改论文" width="110">
+                      <template slot-scope="scope">
+                        <router-link to="#">{{ scope.row.rp.research_paper }}</router-link>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="tpp.teaching_project_province_num" label="主持省级以上教研项目" width="110"></el-table-column>
+                    <el-table-column prop="ep.engineering_project_num" label="主持省级以上本科教学工程" width="110"></el-table-column>       
+                    <el-table-column prop="ta.teaching_achievement_award" label="近十年教学成果奖" width="110"></el-table-column>                                              
                     <el-table-column fixed="right" label="操作" width="100">
                         <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -76,7 +80,7 @@
     </div>
 </template>
 <script>
-import axios from "axios";
+import { fetchList } from '@/api/summary'
 import SelectYear from "@/components/SelectYear"
 export default {
   data() {
@@ -117,21 +121,12 @@ export default {
     },
     // 获取表格数据
     getData(){
-      this.loading = true;
-      axios.get(process.env.VUE_APP_APIURL + "/summary/query",{
-        params: this.page,
-        headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
-      }).then(data => {
-        this.tableData = data.data.data.result;
-        this.page.total = data.data.data.total;
-        this.loading = false;
-      }).catch((err)=>{
-        this.$message({
-          message: err.message,
-          type: 'error'       
-        });
-        this.loading = false;
-      });      
+      this.loading = true,
+      fetchList(this.page).then(response => {
+        console.log(response)
+        this.tableData = response.result.result;
+        this.loading = false
+      })     
     },
     search(){
       this.page.key = this.searchKey.trim()

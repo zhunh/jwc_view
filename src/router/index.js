@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+// import Vue from 'vue'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import TestVue from '@/components/TestVue'
@@ -7,9 +6,14 @@ import Tag from '@/components/TagTest'
 import Element from '@/components/ElementTest'
 import VueRouter from 'vue-router'
 import LoginVue from '@/pages/Login/index'
-
+// 重写 push方法 解决不能两次跳转相同 url 的问题
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
+// 进度条设置
 NProgress.configure({ showSpinner: false },{color: 'white' });
-Vue.use(Router)
+// Vue.use(VueRouter)
 
 const routes = [
     {
@@ -30,7 +34,7 @@ const routes = [
                 component:()=>import('@/pages/DataIn/datain')
             },
             {
-                path: '/major',
+                path: '/major', // 各专业信息表页面
                 name: 'Layout',
                 component: () => import('@/Layout/indexMain'),
                 children: [

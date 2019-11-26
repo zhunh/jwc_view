@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { fetchList } from "@/api/engineeringProject";
 import SelectYear from "@/components/SelectYear"
 export default {
   data() {
@@ -131,20 +131,11 @@ export default {
     // 获取表格数据
     getData(){
       this.loading = true;
-      axios.get(process.env.VUE_APP_APIURL + "/ep/query",{
-        params: this.page,
-        headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
-      }).then(data => {
-        this.tableData = data.data.data.result;
-        this.page.total = data.data.data.total;
-        this.loading = false;
-      }).catch((err)=>{
-        this.$message({
-          message: err.message,
-          type: 'error'       
-        });
-        this.loading = false;
-      });      
+      fetchList(this.page).then((data)=>{
+        this.tableData = data.result.result;
+        this.page.total = data.result.total;
+        this.loading = false;        
+      })    
     },
     search(){
       this.page.key = this.searchKey.trim()

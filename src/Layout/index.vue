@@ -1,18 +1,7 @@
 <template>
     <div>
         <Headerq />
-        <el-container style="height:100%;border: 1px solid #eee;height:calc(100vh - 61px);">
-            <el-container direction="vertical">
-                <el-main>
-                    <!-- Main -->
-                    <router-view/>
-                </el-main>     
-            </el-container>
-        </el-container>
-        <!-- footer -->
-        <!-- <el-container> 
-            <el-footer height="200px">Footer</el-footer>     
-        </el-container>   -->
+        <router-view/>
     </div>
 </template>
 <script>
