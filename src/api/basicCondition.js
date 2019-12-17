@@ -7,3 +7,11 @@ export function fetchList(query){
         params: query
     })
 }
+// 添加
+export function addCo(data){
+    return request({
+        url: '/condition/add',
+        method: 'post',
+        data: data
+    })
+}

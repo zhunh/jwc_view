@@ -27,12 +27,16 @@ const routes = [
             },
             {
                 path:'summary',
-                component:()=>import('@/pages/Summary/summary')
+                component:()=>import('@/pages/Summary')
             },
             {
                 path:'dataIn',
                 component:()=>import('@/pages/DataIn/datain')
             },
+            {
+                path:'dataManage',
+                component:()=>import('@/pages/DataManage/dataManage')
+            },            
             {
                 path: '/major', // 各专业信息表页面
                 name: 'Layout',

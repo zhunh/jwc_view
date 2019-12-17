@@ -7,3 +7,13 @@ export function fetchList(query){
         params: query
     })
 }
+// 添加
+export function addMcr(data){
+    return request({
+        url: '/mcr/add',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}

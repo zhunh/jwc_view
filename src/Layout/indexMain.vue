@@ -24,6 +24,16 @@ export default {
     name: 'main',
     components: {
         Siderbar
+    },
+    data(){
+      return {
+        bgStyle:{
+            height: '100vh',
+            width: '100%',
+            backgroundImage: 'url('+require('@/assets/bg-pic/doodles.png')+')',
+            backgroundRepeat: "repeat",
+        }        
+      }
     }
 }
 </script>
@@ -45,6 +55,9 @@ export default {
     /* background-color: rgb(240, 246, 247); */
     color: #333;
     padding: 20 0;
+
+    background: url('~@/assets/bg-pic/doodles.png');
+    background-repeat: "repeat",  
   }
   
   body > .el-container {

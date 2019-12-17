@@ -7,3 +7,13 @@ export function fetchList(query){
         params: query
     })
 }
+// 添加
+export function addEr(data){
+    return request({
+        url: '/er/add',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}

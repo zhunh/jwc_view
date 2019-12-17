@@ -14,7 +14,7 @@ service.interceptors.request.use(
         return config
     },
     error => {
-        console.log(error+"-zhu")
+        console.log(error+"-jwc")
         return Promise.reject(error)
     }
 )
@@ -42,22 +42,29 @@ service.interceptors.response.use(
                         type:"info"
                     })
                 })
-            }else{
-                Message({
-                    message:res.message+"zhu" || 'Error',
-                    type: 'error',
-                    duration: 5*1000
-                });
             }
-            return Promise.reject(new Error(res.message || 'Error'))
-        } else{
+            // else if(res.code=== 90001){
+            //     Message({
+            //         message:res.msg+"-jwc" || 'Error',
+            //         type: 'error',
+            //         duration: 5*1000
+            //     });
+            // }else{
+            //     Message({
+            //         message:res.msg+"-jwc" || 'Error',
+            //         type: 'error',
+            //         duration: 5*1000
+            //     });
+            // }
+            return Promise.reject(new Error(res.message || res.msg ||'Error-jwc'))
+        }else{
             return res // 返回数据
         }
     },
     error =>{
         console.log('err' + error) // for debug
         Message({
-          message: error.message+"zhu",
+          message: error.message+"-jwc",
           type: 'error',
           duration: 5 * 1000
         })

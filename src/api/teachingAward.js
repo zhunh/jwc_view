@@ -7,3 +7,13 @@ export function fetchList(query){
         params: query
     })
 }
+// 添加
+export function addTa(data){
+    return request({
+        url: '/ta/add',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}

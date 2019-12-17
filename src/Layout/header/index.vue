@@ -13,7 +13,11 @@
         </el-menu-item>
         <el-menu-item index="/summary">数据汇总</el-menu-item>
         <el-menu-item index="/major/">专业基本状态数据</el-menu-item>
-        <el-menu-item index="/dataIn">数据采集</el-menu-item> 
+        <el-submenu index="3">
+            <template slot="title">数据</template>
+            <el-menu-item index="/dataIn">采集</el-menu-item>
+            <el-menu-item index="/dataManage">管理</el-menu-item>
+        </el-submenu>                
         <el-menu-item index="5" disabled>消息中心</el-menu-item>
         <el-menu-item index="6">用户管理</el-menu-item>    
         <!-- <el-submenu index="3">

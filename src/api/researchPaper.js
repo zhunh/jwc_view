@@ -7,3 +7,13 @@ export function fetchList(query){
         params: query
     })
 }
+// 添加
+export function addRp(data){
+    return request({
+        url: '/rp/add',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}

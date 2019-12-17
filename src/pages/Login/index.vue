@@ -70,8 +70,10 @@ export default {
             bgStyle:{
                 height: '100vh',
                 width: '100%',
+                // backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
                 backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
                 backgroundRepeat: "no-repeat",
+                // backgroundRepeat: "no-repeat",
                 backgroundSize: "100% auto",
             }
         }
@@ -163,14 +165,14 @@ $cursor: #fff;
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
-body{
-  background-color: #283443;
-}
+// body{
+//   background-color: #283443;
+// }
 .login-container {
   
   height: 100vh;
   width: 100%;
-  background-color: $bg;
+  // background-color: $bg;
   overflow: hidden;
 
   .login-form {
