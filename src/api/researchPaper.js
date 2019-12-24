@@ -17,3 +17,23 @@ export function addRp(data){
         }
     })
 }
+// 更新
+export function updateRp(data){
+    return request({
+        url: '/rp/update',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}
+// 删除
+export function deleteRp(id){
+    return request({
+        url: '/rp/delete',
+        method: 'get',
+        params: {
+            id:id
+        }
+    })
+}

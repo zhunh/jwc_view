@@ -17,3 +17,23 @@ export function addTa(data){
         }
     })
 }
+// 更新
+export function updateTa(data){
+    return request({
+        url: '/ta/update',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}
+// 删除
+export function deleteTa(id){
+    return request({
+        url: '/ta/delete',
+        method: 'get',
+        params: {
+            id:id
+        }
+    })
+}

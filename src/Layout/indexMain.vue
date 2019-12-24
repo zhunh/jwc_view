@@ -1,5 +1,6 @@
 <template>
-    <el-container style="height:100%;border: 1px solid #eee;height:calc(100vh - 61px);">
+<!-- 包含头部和左侧栏的router-view -->
+    <el-container style="border: 1px solid #eee;height:calc(100vh - 61px);">
         <el-aside width="auto">
             <!-- Aside -->
             <Siderbar />

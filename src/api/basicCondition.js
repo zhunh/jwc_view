@@ -15,3 +15,23 @@ export function addCo(data){
         data: data
     })
 }
+// 更新
+export function updateCo(data){
+    return request({
+        url: '/condition/update',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}
+// 删除
+export function deleteCo(id){
+    return request({
+        url: '/condition/delete',
+        method: 'get',
+        params: {
+            id:id
+        }
+    })
+}

@@ -1,11 +1,21 @@
 <template>
   <div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogDeleteVisible"
+      width="30%">
+      <span>确定要删除这条记录吗？{{deleteItem}}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogDeleteVisible = false">取 消</el-button>
+        <el-button type="primary" @click="deleteEr">确 定</el-button>
+      </span>
+    </el-dialog>    
     <!--操作栏-->
     <el-row>
       <el-col :span="12" class="grid" :offset="0">
         <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button> -->
-        <el-button type="primary" @click="fresh" icon="el-icon-refresh-right" size="mini">刷新</el-button>
-        <el-button type="info" icon="el-icon-delete" size="mini"></el-button>
+        <el-button plain type="primary" @click="fresh" icon="el-icon-refresh-right" size="mini">刷新</el-button>
+        <!-- <el-button type="info" icon="el-icon-delete" size="mini"></el-button> -->
         <!-- <el-button type="danger" icon="el-icon-download" size="mini">导出</el-button>
         <el-button type="primary" size="mini">
           上传
@@ -33,28 +43,73 @@
           size="small"
           style="width: 100%"
         >
-          <el-table-column type="selection" fixed="left"></el-table-column>
+          <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
           <el-table-column type="index" fixed="left"></el-table-column>
-          <el-table-column prop="major_name" label="专业名称"></el-table-column>
-          <el-table-column prop="major_code" label="专业代码"></el-table-column>
-          <el-table-column prop="employment_count" label="就业人数"></el-table-column>
-          <el-table-column label-class-name="warning-row" prop="employment_rate" label="就业率" :sortable="true">
-              <!-- <template slot-scope="scope">
-              <el-progress stroke-width="10" :text-inside="true" :percentage="scope.row.postgraduate_rate"></el-progress>
-              </template> -->
+
+          <el-table-column prop="major_name" label="专业名称"
+          :show-overflow-tooltip="true">
+            <template slot-scope="{row}">
+              <span>{{row.major_name}}</span>
+            </template>            
           </el-table-column>
-          <el-table-column prop="year" label="年份"
+
+          <el-table-column label="专业代码">
+            <template slot-scope="{row}">
+              <span>{{row.major_code}}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label-class-name="warning-row" label="就业率" :sortable="true">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.employment_rate" size="mini" class="edit-input"></el-input>
+              </template>
+              <span v-else>{{ row.employment_rate }}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column 
+          label="年份"
           :filters="[{text:'2019',value:'2019'},{text:'2018',value:'2018'},{text:'2017',value:'2017'}]"
           :filter-method="filterHandler"
           filter-placement="bottom-end"
-          ></el-table-column>
-          <el-table-column prop="post_time" label="填报时间" :sortable="true"></el-table-column>
-          <el-table-column prop="poster" label="填报人"></el-table-column>
-          <el-table-column prop="remarks" label="备注" width="110"></el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
+          >
+            <template slot-scope="{row}">
+              <span>{{row.year}}</span>
+            </template>
+          </el-table-column>
+          
+          <el-table-column label="填报时间" :sortable="true">
+            <template slot-scope="{row}">
+              <span>{{row.post_time}}</span>
+            </template>
+          </el-table-column>
+          
+          <el-table-column label="填报人">
+            <template slot-scope="{row}">
+              <span>{{row.poster}}</span>
+            </template>            
+          </el-table-column>
+
+          <el-table-column label="备注">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-input v-model="row.remarks" size="mini"></el-input>
+              </template>
+              <span v-else>{{row.remarks}}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column fixed="right" label="操作">
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-button type="text"  size="mini" @click="confirmEdit(row)">确定</el-button>
+                <el-button type="text" size="mini" @click="cancelEdit(row)">取消</el-button>
+              </template>
+              <template v-else>
+                <el-button type="info" plain size="mini" @click="row.edit=!row.edit">编辑</el-button>            
+                <el-button type="text" size="mini" @click="deleteItem=row._id;dialogDeleteVisible=true">删除</el-button>
+              </template>
             </template>
           </el-table-column>
         </el-table>
@@ -91,12 +146,14 @@
 </template>
 
 <script>
-import { fetchList } from "@/api/employmentRate";
+import { fetchList,updateEr,deleteEr } from "@/api/employmentRate";
 import SelectYear from "@/components/SelectYear"
 export default {
   data() {
     return {
       dialogVisible: false,
+      dialogDeleteVisible: false,
+      deleteItem:'',
       loading: false,
       tableData: [],
       checkLook: {},
@@ -136,7 +193,14 @@ export default {
     getData(){
       this.loading = true;
       fetchList(this.page).then((data)=>{
-        this.tableData = data.result.result;
+        //this.tableData = data.result.result;
+
+        this.tableData = data.result.result.map(v => {
+          this.$set(v, 'edit', false) 
+          v.originalEr = v.employment_rate 
+          v.originalRemark = v.remarks
+          return v
+        })
         this.page.total = data.result.total;
         this.loading = false;
       }).catch((err)=>{
@@ -150,6 +214,48 @@ export default {
     fresh(){
       // this.$router.replace('/major/er')
       window.location.reload()
+    },
+    deleteEr(){
+      deleteEr(this.deleteItem).then(re=>{
+        this.$message({
+          type:'success',
+          message:re.msg
+        })
+        this.getData()
+      }).catch(err=>{
+        this.$message({
+          type:'error',
+          message:err.message
+        })        
+      })
+      this.dialogDeleteVisible = false
+    },
+    cancelEdit(row) {
+      row.employment_rate = row.originalEr
+      row.remarks = row.originalRemark
+      row.edit = false
+      this.$message({
+        message: '取消修改',
+        type: 'warning'
+      })
+    },
+    confirmEdit(row) {
+      row.edit = false;
+      let tmp = {...row}
+      delete tmp.edit
+      delete tmp.originalEr
+      delete tmp.originalRemark
+      updateEr(tmp).then(re=>{
+        this.$message({
+          message: re.msg,
+          type: "success"
+        });
+      }).catch(err=>{
+        this.$message({
+          message: err.message,
+          type: "error"
+        });        
+      })
     }
   },
   watch: {

@@ -40,11 +40,11 @@
           <el-table-column type="index" width="40" fixed="left"></el-table-column>
           <el-table-column prop="post_year" label="填报年份" width></el-table-column>
           <el-table-column prop="major_code_school" label="校内专业代码" width="105"></el-table-column>
-          <el-table-column prop="major_name_school" label="校内专业名称" min-width="110"></el-table-column>
-          <el-table-column prop="major_name" label="专业名称"></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="major_name_school" label="校内专业名称" min-width="110"></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="major_name" label="专业名称"></el-table-column>
           <el-table-column prop="major_code" label="专业代码"></el-table-column>
           <el-table-column prop="code_version" label="代码版本"></el-table-column>
-          <el-table-column prop="academy" label="所属单位名称" min-width="110"></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="academy" label="所属单位名称" min-width="110"></el-table-column>
           <el-table-column prop="academy_code" label="所属单位号" width="110"></el-table-column>
           <el-table-column prop="major_start_year" label="专业设置年份" :sortable="true" width="120"></el-table-column>
           <el-table-column prop="schooling_year" label="学制"></el-table-column>
@@ -53,8 +53,8 @@
           <el-table-column prop="recruit_state" label="招生状态"></el-table-column>
           <el-table-column prop="new_yn" label="是否新专业" width="100"></el-table-column>
           <el-table-column prop="teachers_yn" label="是否师范类专业" width="120"></el-table-column>
-          <el-table-column prop="post_user" label="填报人" min-width="120"></el-table-column>
-          <el-table-column prop="post_time" label="填报时间"></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="post_user" label="填报人" min-width="120"></el-table-column>
+          <el-table-column :show-overflow-tooltip="true" prop="post_time" label="填报时间"></el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -83,7 +83,7 @@
     </el-row>
     <!--对话框  -->
     <el-dialog title="详情" :visible.sync="dialogVisible" width="30%">
-      <el-card class="box-card">
+      <el-card class="box-card" shadow="never">
         <div v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</div>
       </el-card>
       <!-- <span slot="footer" class="dialog-footer">
@@ -123,13 +123,13 @@ export default {
   },
   computed:{
     deleteSelection:function(){
-      let deArray = new Array();
+      let idArray = new Array();
       this.multipleSelection.forEach(element => {
         if(element._id!==null&&element._id!==undefined){
-          deArray.push(element._id)
+          idArray.push(element._id)
         }       
       });
-      return deArray
+      return idArray
     }
   },
   methods: {

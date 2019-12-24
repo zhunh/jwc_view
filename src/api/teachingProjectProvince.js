@@ -17,3 +17,23 @@ export function addTpp(data){
         }
     })
 }
+// 更新
+export function updateTpp(data){
+    return request({
+        url: '/tpp/update',
+        method: 'post',
+        data: {
+            ...data
+        }
+    })
+}
+// 删除
+export function deleteTpp(id){
+    return request({
+        url: '/tpp/delete',
+        method: 'get',
+        params: {
+            id:id
+        }
+    })
+}

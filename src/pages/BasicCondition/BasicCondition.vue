@@ -31,27 +31,101 @@
           :fit="true"
           tooltip-effect="dark"
           size="small"
-          
+          border
           style="width: 100%"
         >
-          <el-table-column type="selection" fixed="left"></el-table-column>
-          <el-table-column type="index" fixed="left"></el-table-column>
-          <el-table-column prop="major_name" label="专业名称"></el-table-column>
-          <el-table-column prop="major_code" label="专业代码"></el-table-column>
-          <el-table-column prop="teacher_num" width="100" label="专任教师人数"></el-table-column>
-          <el-table-column prop="student_at_school" width="110" label="在校生人数" :sortable="true"></el-table-column>
-          <el-table-column prop="teacher_of_dr" width="100" label="博士学位教师"></el-table-column>
-          <el-table-column prop="full_professor" label="正高"></el-table-column>
-          <el-table-column prop="associate_professor" label="副高"></el-table-column>
-          <el-table-column prop="value_of_equipment" width="100" label="仪器设备总值"></el-table-column>
-          <el-table-column prop="year" label="年份"></el-table-column>
-          <el-table-column prop="post_time" width="100" label="填报时间" :sortable="true"></el-table-column>
-          <el-table-column prop="poster" label="填报人"></el-table-column>
-          <el-table-column prop="remarks" label="备注" width="110"></el-table-column>
+          <el-table-column align="center" type="selection" fixed="left"></el-table-column>
+          <el-table-column align="center" type="index" fixed="left"></el-table-column>
+          <el-table-column align="center" :show-overflow-tooltip="true" prop="major_name" label="专业名称">
+            <template slot-scope="{row}">
+              <span>{{row.major_name}}</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column align="center" label="专业代码">
+            <template slot-scope="{row}">
+              <span>{{row.major_code}}</span>
+            </template>            
+          </el-table-column>
+
+          <el-table-column align="center" width="100" label="专任教师人数">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.teacher_num" size="mini"></el-input>
+              <span v-else>{{row.teacher_num}}</span>
+            </template>              
+          </el-table-column>
+
+          <el-table-column align="center" width="110" label="在校生人数" :sortable="true">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.student_at_school" size="mini"></el-input>
+              <span v-else>{{row.student_at_school}}</span>
+            </template>             
+          </el-table-column>
+
+          <el-table-column align="center" width="100" label="博士学位教师">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.teacher_of_dr" size="mini"></el-input>
+              <span v-else>{{row.teacher_of_dr}}</span>
+            </template>              
+          </el-table-column>
+
+          <el-table-column align="center" label="正高">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.full_professor" size="mini"></el-input>
+              <span v-else>{{row.full_professor}}</span>
+            </template>             
+          </el-table-column>
+
+          <el-table-column align="center" label="副高">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.associate_professor" size="mini"></el-input>
+              <span v-else>{{row.associate_professor}}</span>
+            </template>             
+          </el-table-column>
+
+          <el-table-column align="center" width="100" label="仪器设备总值">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.value_of_equipment" size="mini"></el-input>
+              <span v-else>{{row.value_of_equipment}}</span>
+            </template>              
+          </el-table-column>
+
+          <el-table-column align="center" label="年份">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.year" size="mini"></el-input>
+              <span v-else>{{row.year}}</span>
+            </template>            
+          </el-table-column>
+
+          <el-table-column align="center" :show-overflow-tooltip="true" width="100" label="填报时间" :sortable="true">
+            <template slot-scope="{row}">
+              <span>{{row.post_time}}</span>
+            </template>            
+          </el-table-column>
+
+          <el-table-column align="center" label="填报人">
+            <template slot-scope="{row}">
+              <span>{{row.poster}}</span>
+            </template>               
+          </el-table-column>
+
+          <el-table-column :show-overflow-tooltip="true" prop="remarks" label="备注">
+            <template slot-scope="{row}">
+              <el-input v-if="row.edit" v-model="row.remarks" size="mini"></el-input>
+              <span v-else>{{row.remarks}}</span>
+            </template>             
+          </el-table-column>
+
           <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
+            <template slot-scope="{row}">
+              <template v-if="row.edit">
+                <el-button type="text" size="small" @click="confirmEdit(row)">确定</el-button>
+                <el-button type="text" size="small" @click="cancelEdit(row)">取消</el-button>
+              </template>
+              <template v-else>
+                <el-button @click="handleClick(row)" type="text" size="small">查看</el-button>
+                <el-button type="text" size="small" @click="row.edit=true">编辑</el-button>
+              </template>
             </template>
           </el-table-column>
         </el-table>
@@ -76,7 +150,7 @@
     </el-row>
     <!--对话框  -->
     <el-dialog title="详情" :visible.sync="dialogVisible" width="30%">
-      <el-card class="box-card">
+      <el-card class="box-card" shadow="never">
         <div v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</div>
       </el-card>
       <!-- <span slot="footer" class="dialog-footer">
@@ -88,7 +162,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/basicCondition'
+import { fetchList,updateCo } from '@/api/basicCondition'
 import SelectYear from '@/components/SelectYear'
 export default {
   data() {
@@ -132,25 +206,60 @@ export default {
     getData(){
       this.loading = true;
       fetchList(this.page).then((data)=>{
-        this.tableData = data.result.result;
+        this.tableData = data.result.result.map(v => {
+          this.$set(v, 'edit', false) 
+          v.oriTn = v.teacher_num
+          v.oriStu = v.student_at_school
+          v.oriDr = v.teacher_of_dr
+          v.oriFp = v.full_professor
+          v.oriAp = v.associate_professor
+          v.oriEqu = v.value_of_equipment
+          v.oriYear = v.year
+          v.oriRemark = v.remarks
+          return v
+        })        
         this.page.total = data.result.total;
         this.loading = false;
+      })    
+    },
+    confirmEdit(row) {
+      row.edit = false;
+      let tmp = {...row}
+      delete tmp.edit
+      delete tmp.oriTn
+      delete tmp.oriStu
+      delete tmp.oriDr
+      delete tmp.oriFp
+      delete tmp.oriAp
+      delete tmp.oriEqu
+      delete tmp.oriYear
+      delete tmp.oriRemark
+      updateCo(tmp).then(re=>{
+        this.$message({
+          message: re.msg,
+          type: "success"
+        });
+      }).catch(err=>{
+        this.$message({
+          message: err.message,
+          type: "error"
+        });        
       })
-      // this.loading = true;
-      // axios.get(process.env.VUE_APP_APIURL + "/condition/query",{
-      //   params: this.page,
-      //   headers: {'AccessToken': sessionStorage.getItem('jwctoken')},
-      // }).then(data => {
-      //   this.tableData = data.data.data.result;
-      //   this.page.total = data.data.data.total;
-      //   this.loading = false;
-      // }).catch((err)=>{
-      //   this.$message({
-      //     message: err.message,
-      //     type: 'error'       
-      //   });
-      //   this.loading = false;
-      // });      
+    },    
+    cancelEdit(row){
+      row.teacher_num = row.oriTn
+      row.student_at_school = row.oriStu
+      row.teacher_of_dr = row.oriDr
+      row.full_professor = row.oriFp
+      row.associate_professor = row.oriAp
+      row.value_of_equipment = row.oriEqu
+      row.yearv = row.oriYear
+      row.remarks = row.oriRemark
+      row.edit = false
+      this.$message({
+        message: '取消修改',
+        type: 'warning'
+      })
     },
     search(){
       this.page.key = this.searchKey.trim()

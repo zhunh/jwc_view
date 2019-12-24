@@ -1,4 +1,5 @@
 <template>
+<!-- 只包含头部的的router-view -->
     <div>
         <Headerq />
         <router-view/>
