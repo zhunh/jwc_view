@@ -34,6 +34,10 @@ const routes = [
                 component:()=>import('@/pages/DataIn/datain')
             },
             {
+                path:'user',
+                component:()=>import('@/pages/User')
+            },            
+            {
                 path:'dataManage',
                 component:()=>import('@/pages/DataManage/dataManage')
             },            

@@ -19,7 +19,7 @@
             <el-menu-item index="/dataManage">管理</el-menu-item>
         </el-submenu>                
         <el-menu-item index="5" disabled>消息中心</el-menu-item>
-        <el-menu-item index="6">用户管理</el-menu-item>    
+        <el-menu-item index="/user">用户管理</el-menu-item>    
         <!-- <el-submenu index="3">
             <template slot="title">选项卡</template>
             <el-menu-item index="3-1">选项1</el-menu-item>

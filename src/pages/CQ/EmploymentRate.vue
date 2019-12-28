@@ -40,7 +40,7 @@
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
-          size="small"
+          size="medium"
           style="width: 100%"
         >
           <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
@@ -241,6 +241,8 @@ export default {
     },
     confirmEdit(row) {
       row.edit = false;
+      row.originalEr = row.employment_rate 
+      row.originalRemark = row.remarks
       let tmp = {...row}
       delete tmp.edit
       delete tmp.originalEr

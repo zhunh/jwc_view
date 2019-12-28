@@ -16,13 +16,13 @@
         :highlight-current-row="true"
         :fit="true"
         tooltip-effect="dark"
-        size="small"
+        size="medium"
         :cell-class-name="tableCellClassName"
         style="width: 100%"
         >
         <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
         <el-table-column type="index" fixed="left"></el-table-column>
-        <el-table-column prop="major_name" fixed="left" label="专业名称"></el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="major_name" fixed="left" label="专业名称"></el-table-column>
         <el-table-column prop="major_code" label="专业代码"></el-table-column>
         <el-table-column prop="teacherScore" width="100" label="专任教师人数得分"></el-table-column>
         <el-table-column prop="ssbScore" width="110" label="师生比得分" :sortable="true"></el-table-column>

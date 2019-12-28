@@ -1,18 +1,28 @@
 <template>
   <div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogDeVisible"
+      width="30%">
+      <span>确定删除这 {{deleteSelection.length-1}} 条记录吗？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogDeVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmDelete">确 定</el-button>
+      </span>
+    </el-dialog>    
     <!--操作栏-->
     <el-row>
       <el-col :span="24" class="grid" :offset="0">
         <FileName v-model="filename"/>
         <BookType v-model="bookType"/>
         <el-button :loading="downloadLoading" type="danger" icon="el-icon-document" size="mini" @click="export2excel">导出</el-button>
-        <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-        <el-button type="warning" icon="el-icon-share" size="mini"></el-button>
+        <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
+        <el-button type="warning" icon="el-icon-share" size="mini"></el-button> -->
         <el-button type="info" icon="el-icon-delete" size="mini" @click="deleteRows"></el-button>
-        <el-button type="primary" size="mini">
+        <!-- <el-button type="primary" size="mini">
           上传
           <i class="el-icon-upload el-icon--right"></i>
-        </el-button>
+        </el-button> -->
       <!-- </el-col>
       <el-col :span="12" class="grid" :offset="0"> -->
         <el-form ref="searchForm" style="float:right; display:inline-block">
@@ -86,10 +96,6 @@
       <el-card class="box-card" shadow="never">
         <div v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</div>
       </el-card>
-      <!-- <span slot="footer" class="dialog-footer">
-      <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>-->
     </el-dialog>
   </div>
 </template>
@@ -103,6 +109,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      dialogDeVisible:false,
       loading: false,
       downloadLoading:false,
       filename: '',
@@ -159,6 +166,13 @@ export default {
       })    
     },
     deleteRows(){
+      if(this.deleteSelection.length<2){// 这里默认有一条undefined记录
+        this.$message({type:'warning',message:"没有勾选记录"})
+        return
+      }
+      this.dialogDeVisible = true
+    },
+    confirmDelete(){
       this.loading = true;
       deleteMany(this.deleteSelection).then((res)=>{
         if(res.code==90000){

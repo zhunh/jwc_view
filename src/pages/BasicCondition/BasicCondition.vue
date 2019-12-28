@@ -3,14 +3,14 @@
     <!--操作栏-->
     <el-row>
       <el-col :span="12" class="grid" :offset="0">
-        <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-        <el-button type="warning" icon="el-icon-share" size="mini"></el-button>
+        <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
+        <el-button type="warning" icon="el-icon-share" size="mini"></el-button> -->
         <el-button type="info" icon="el-icon-delete" size="mini"></el-button>
-        <el-button type="danger" icon="el-icon-download" size="mini" @click="export2excel">导出</el-button>
+        <!-- <el-button type="danger" icon="el-icon-download" size="mini" @click="export2excel">导出</el-button>
         <el-button type="primary" size="mini">
           上传
           <i class="el-icon-upload el-icon--right"></i>
-        </el-button>
+        </el-button> -->
       </el-col>
       <el-col :span="12" class="grid" :offset="0">
         <el-form ref="searchForm" style="float:right;">
@@ -30,7 +30,7 @@
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
-          size="small"
+          size="medium"
           border
           style="width: 100%"
         >
@@ -222,9 +222,17 @@ export default {
         this.loading = false;
       })    
     },
-    confirmEdit(row) {
-      row.edit = false;
-      let tmp = {...row}
+    confirmEdit(v) {
+      v.edit = false;
+      v.oriTn = v.teacher_num
+      v.oriStu = v.student_at_school
+      v.oriDr = v.teacher_of_dr
+      v.oriFp = v.full_professor
+      v.oriAp = v.associate_professor
+      v.oriEqu = v.value_of_equipment
+      v.oriYear = v.year
+      v.oriRemark = v.remarks
+      let tmp = {...v}
       delete tmp.edit
       delete tmp.oriTn
       delete tmp.oriStu

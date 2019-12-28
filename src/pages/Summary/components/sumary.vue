@@ -16,15 +16,15 @@
         :highlight-current-row="true"
         :fit="true"
         tooltip-effect="dark"
-        size="small"
+        size="medium"
         :cell-class-name="tableCellClassName"
         style="width: 100%"
         >
         <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
         <el-table-column type="index" fixed="left"></el-table-column>
-        <el-table-column prop="major_name" fixed="left" label="专业名称"></el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="major_name" fixed="left" label="专业名称"></el-table-column>
         <el-table-column prop="major_code" label="专业代码"></el-table-column>
-        <el-table-column prop="teacher_num" width="100" label="专任教师人数"></el-table-column>
+        <el-table-column prop="teacher_num" width="100" label="专任教\/n师人数"></el-table-column>
         <el-table-column prop="student_at_school" width="110" label="在校生人数" :sortable="true"></el-table-column>
         <el-table-column prop="teacher_of_dr" width="100" label="博士学位教师"></el-table-column>
         <el-table-column prop="full_professor" label="正高"></el-table-column>

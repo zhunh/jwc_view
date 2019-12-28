@@ -33,7 +33,7 @@
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
-          size="small"
+          size="medium"
           style="width: 100%"
         >
           <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
@@ -230,6 +230,8 @@ export default {
     },
     confirmEdit(row) {
       row.edit = false;
+      row.originalEp = row.engineering_project_num 
+      row.originalRemark = row.remarks      
       let tmp = {...row}
       delete tmp.edit
       delete tmp.originalEp
