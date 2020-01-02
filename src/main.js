@@ -5,6 +5,8 @@ import './assets/css/base.css'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from "./store"
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 import App from './App.vue'
 // 将 vue 的开发提示给关闭

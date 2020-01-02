@@ -62,7 +62,8 @@
                         </el-table>
                     </div>                    
                 </el-card>                    
-                </el-row>           
+                </el-row>   
+                <div id="myEchart" style="width:300px;height:300px;"></div>        
             </el-col>       
         </el-row>
     </div>
@@ -98,6 +99,34 @@ export default {
         return{
             picRun:false
         }
+    },
+    methods:{
+        drawLine(){
+        let myChart = this.$echarts.init(document.getElementById("myEchart"))
+        let option = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
+                // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
+                dimensions: ['er', 'year'],
+                source: [
+                    {'year':2016,'er':65},
+                    {'year':2017,'er':77},
+                    {'year':2018,'er':89}
+                ]
+            },
+            xAxis: {type: 'category'},
+            yAxis: {},
+            series: [
+                {type: 'bar'}
+            ]
+        };        
+        myChart.setOption(option);
+        },        
+    },
+    mounted(){
+        this.drawLine()
     }
 }
 </script>
