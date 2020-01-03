@@ -126,10 +126,10 @@
     title="详情"
     :visible.sync="drawer"
     :direction="direction"
+    :with-header="false"
     >
-    <!-- <span v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</span> -->
-        <div id="myEchart" style="width:350px;height:200px"></div>
-        <!-- <div>专业名称：{{checkLook.major_name}}</div>
+      <el-row>
+        <div>专业名称：<el-tag type="success">{{checkLook.major_name}}</el-tag></div>
         <div>专业代码：{{checkLook.major_code}}</div>
         <div>专任教师人数：{{checkLook.teacher_num}}</div>
         <div>在校生人数：{{checkLook.student_at_school}}</div>
@@ -137,6 +137,11 @@
         <div>正高：{{checkLook.full_professor}}</div>
         <div>副高：{{checkLook.associate_professor}}</div>
         <div>仪器设备总值：{{checkLook.value_of_equipment}}</div>
+      </el-row>  
+    <!-- <span v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</span> -->
+        <div id="myEchart01" style="width:400px;height:200px"></div>
+        <div id="myEchart02" style="width:400px;height:200px"></div>
+        <!-- 
         <div>就业率：
           <ul>
             <li v-for="(item,index) in checkLook.er" v-bind:key="index">{{item.year}}：{{item.employment_rate}}</li>
@@ -179,6 +184,10 @@
 .el-table .success-row {
 background: #f0f9eb;
 }
+.el-row{
+  padding: 0px 10px 20px 20px;
+  /* border: 1px solid; */
+}
 </style>
 <script>
 import { fetchList } from '@/api/summary'
@@ -194,15 +203,16 @@ export default {
       checkLook: {
         associate_professor: '',
         ep: {engineering_project_num: ''},
-        er: {employment_rate: ''},
+        // er: {employment_rate: ''},
+        er:[],
         full_professor: '',
         major_code: '',
         major_name: "",
-        mcr: {major_convert_rate: ""},
-        pr: {postgraduate_rate: ''},
-        rp: {research_paper: '', },
+        mcr: [{major_convert_rate: ""}],
+        pr: [{postgraduate_rate: ''}],
+        rp: [{research_paper: '', }],
         student_at_school: '',
-        ta: {major_name: "", teaching_achievement_award: ''},
+        ta: [{major_name: "", teaching_achievement_award: ''}],
         teacher_num: '',
         teacher_of_dr: '',
         tpp: {teaching_project_province_num: 0},
@@ -227,7 +237,7 @@ export default {
   },
   methods: {
     drawLine(){
-      let myChart = this.$echarts.init(document.getElementById("myEchart"))
+      let myChart = this.$echarts.init(document.getElementById("myEchart01"))
       let er = this.checkLook.er
       let pr = this.checkLook.pr
       let tr = this.checkLook.tr
@@ -236,13 +246,28 @@ export default {
         item.major_convert_rate = parseFloat(item.major_convert_rate)
         return item
       })
-      console.log(pr)
+      console.log(er)
       console.log(mcr)
       let option = {
-          legend: {},
+          title:{
+            // text:"近三年就业率、考研率、调剂率、转出率"
+          },
+          legend: {
+              // type: 'scroll',
+              // orient: 'vertical',
+              // left: 0,
+              // top: 0,
+              // bottom: 20,
+              // data: ['就业率','考研率','调剂率','转出率'],
+              // selected: {'就业率':true}
+          },
           tooltip: {},
+          label: {
+            // show:true,
+            // formatter:'{b}\n{c}'
+          },
           dataset: {          
-            dimensions: ['year', {name:'employment_rate',type: 'ordinal'},'postgraduate_rate','major_convert_rate','turnout_rate'],
+            dimensions: ['year', 'employment_rate','postgraduate_rate','major_convert_rate','turnout_rate'],
             source: [
               ...er,
               ...pr,
@@ -250,21 +275,62 @@ export default {
               ...tr
             ]
           },
+          // toolbox: {
+          //     show: true,
+          //     feature: {
+          //         dataZoom: {
+          //             yAxisIndex: 'none'
+          //         },
+          //         dataView: {readOnly: false},
+          //         magicType: {type: ['line', 'bar']},
+          //         restore: {},
+          //         saveAsImage: {}
+          //     }
+          // },          
           xAxis: {type: 'category'},
           yAxis: {},
           series: [
-            {type: 'bar',label:{formatter: '就业率'}},
-            {type: 'bar'},
-            {type: 'bar'},
-            {type: 'bar'}
+            {type: 'bar', name:'就业率'},
+            {type: 'bar', name:'考研率'},
+            {type: 'bar', name:'调剂率'},
+            {type: 'bar', name:'转出率'}
           ]
       };      
       myChart.setOption(option);
     },
+    drawLine02(){
+      let myChart = this.$echarts.init(document.getElementById("myEchart02"))
+      let rp = this.checkLook.rp
+      let scc = this.checkLook.scc
+      let spp = this.checkLook.spp
+      let option = {
+          title:{},
+          legend: {},
+          tooltip: {},
+          label: {},
+          dataset: {          
+            dimensions: ['year', 'student_course_contest','student_paper_patent','research_paper'],
+            source: [
+              ...rp,
+              ...scc,
+              ...spp
+            ]
+          },          
+          xAxis: {type: 'category'},
+          yAxis: {},
+          series: [
+            {type: 'bar', name:'学生学科竞赛'},
+            {type: 'bar', name:'学生论文专利'},
+            {type: 'bar', name:'教改论文'}
+          ]
+      };      
+      myChart.setOption(option);
+    },    
     handleClick(obj) {
       this.drawer = true;
       this.checkLook = obj;
       this.drawLine()
+      this.drawLine02()
     },
     sizeChange(pageSize) {
       this.page.pageSize = pageSize;
