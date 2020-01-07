@@ -23,3 +23,11 @@ export function deleteMany(obj){
         }
     })
 }
+
+export function getMba(query){
+    return request({
+        url: '/table/mba',
+        method: 'get',
+        params: query
+    })
+}

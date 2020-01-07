@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- <el-image :src="imgSrc"></el-image> -->
-        <el-row class="bg">
+        <el-row>
             <el-col :span="6">     
                 <el-row>     
                 <el-card shadow="never">
@@ -19,7 +19,7 @@
                         <h3 class="small">{{ item }}</h3>
                     </el-carousel-item>
                     </el-carousel>      
-                <el-collapse v-model="activeNames" @change="handleChange" accordion>
+                <el-collapse accordion>
                 <el-collapse-item title="系统 MBS" name="1">
                     <div>专业基本状态数据库，Major BasicState</div>
                     <div>记录每年全校所有专业各种基本数据</div>
@@ -45,25 +45,17 @@
                 <el-row>
                 <el-card shadow="never">
                     <div slot="header" class="clearfix">
-                        <span>通知：</span>
+                        <span>学校专业分布：</span>
                         <el-button style="float: right; padding: 3px 0" type="text">操作</el-button>
                     </div>
-                    <div>
-                        <el-table>
-                            <el-table-column label="列表"></el-table-column>
-                        </el-table>
-                    </div>                    
+                    <majorPie></majorPie>            
                 </el-card>   
                 <el-divider></el-divider>
                 <el-card shadow="never">
-                    <div>
-                        <el-table>
-                            <el-table-column label="列表"></el-table-column>
-                        </el-table>
-                    </div>                    
+                    <!-- <div id="mychart" style="width:600px;height:400px;"></div>   
+                    <div id="mychart02" style="width:600px;height:400px;"></div>                  -->
                 </el-card>                    
-                </el-row>   
-                <div id="myEchart" style="width:300px;height:300px;"></div>        
+                </el-row>           
             </el-col>       
         </el-row>
     </div>
@@ -87,43 +79,91 @@
   .el-carousel__item:nth-child(2n+1) {
      background-color: #d3dce6;
   }    
-  .bg{
+  /* .bg{
     height:calc(100vh - 61px);
     background: url('~@/assets/bg-pic/doodles.png');
     background-repeat: "repeat";       
-  }
+  } */
 </style>
 <script>
+import majorPie from './components/majorPie'
 export default {
     data(){
         return{
-            picRun:false
+            picRun:false,
         }
     },
+    components:{majorPie},
     methods:{
-        drawLine(){
-        let myChart = this.$echarts.init(document.getElementById("myEchart"))
-        let option = {
-            legend: {},
-            tooltip: {},
-            dataset: {
-                // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
-                // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
-                dimensions: ['er', 'year'],
-                source: [
-                    {'year':2016,'er':65},
-                    {'year':2017,'er':77},
-                    {'year':2018,'er':89}
-                ]
-            },
-            xAxis: {type: 'category'},
-            yAxis: {},
-            series: [
-                {type: 'bar'}
-            ]
-        };        
-        myChart.setOption(option);
-        },        
+        // drawLine(){
+        // // 基于准备好的dom，初始化echarts实例
+        //     var myChart = this.$echarts.init(document.getElementById('mychart'));
+        //     // 指定图表的配置项和数据
+        //     var option = {
+        //         title: {
+        //             text: '2019本科教学工程项目',
+        //             left: '45%',
+        //             textAlign: 'center'
+        //         },
+        //         tooltip: {},
+        //         toolbox: {
+        //             show: true,
+        //             feature: {
+        //                 dataZoom: {
+        //                     yAxisIndex: 'none'
+        //                 },
+        //                 dataView: {readOnly: false},
+        //                 magicType: {type: ['line', 'bar']},
+        //                 restore: {},
+        //                 saveAsImage: {}
+        //             }
+        //         },                 
+        //         legend: {
+        //             data:['数量']
+        //         },
+        //         xAxis: {
+        //             data: ["省级教改课题","省级精品在线开放课程","省级高校课程育人共享计划","省级虚拟仿真实验教学项目"],
+        //             axisLabel: {
+        //                 interval: 0,
+        //                 rotate: 10
+        //             }                 
+        //         },
+        //         yAxis: {},
+        //         series: [{
+                    
+        //             type: 'bar',
+        //             data: [29, 9, 10, 6],
+        //             label: {
+        //                 show: true,
+        //                 position: 'inside'
+        //             },
+        //             itemStyle:{
+        //                 //通常情况下：
+        //                 normal:{  
+        //                     //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组中的颜色
+        //                     color: function (params){
+        //                         var colorList = [
+        //                             '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+        //                             '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+        //                             '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+        //                             ];
+        //                         return colorList[params.dataIndex];
+        //                     },
+        //                     // color: '#a453f7',  //设置所有柱状图颜色
+        //                 },
+        //                 //鼠标悬停时：
+        //                 emphasis: {
+        //                     shadowBlur: 10,
+        //                     shadowOffsetX: 0,
+        //                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+        //                 }
+        //             }                   
+        //         }]
+        //     };
+
+        //     // 使用刚指定的配置项和数据显示图表。
+        //     myChart.setOption(option);            
+        // }
     },
     mounted(){
         this.drawLine()
