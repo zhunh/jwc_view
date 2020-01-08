@@ -16,7 +16,7 @@
         :highlight-current-row="true"
         :fit="true"
         tooltip-effect="dark"
-        size="medium"
+        size="small"
         :cell-class-name="tableCellClassName"
         style="width: 100%"
         >

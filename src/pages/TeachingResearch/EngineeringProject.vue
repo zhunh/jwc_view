@@ -32,27 +32,28 @@
           max-height="500"
           :highlight-current-row="true"
           :fit="true"
+          border
           tooltip-effect="dark"
-          size="medium"
+          size="small"
           style="width: 100%"
         >
           <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
           <el-table-column type="index" fixed="left"></el-table-column>
 
-          <el-table-column prop="major_name" label="专业名称"
+          <el-table-column align="center" prop="major_name" label="专业名称"
           :show-overflow-tooltip="true">
             <template slot-scope="{row}">
               <span>{{row.major_name}}</span>
             </template>            
           </el-table-column>
 
-          <el-table-column label="专业代码">
+          <el-table-column align="center" label="专业代码">
             <template slot-scope="{row}">
               <span>{{row.major_code}}</span>
             </template>
           </el-table-column>
 
-          <el-table-column label-class-name="warning-row" label="教学主持本科工程" :sortable="true">
+          <el-table-column align="center" label-class-name="warning-row" label="教学主持本科工程" :sortable="true">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.engineering_project_num" size="mini" class="edit-input"></el-input>
@@ -63,6 +64,7 @@
 
           <el-table-column 
           label="年份"
+          align="center"
           :filters="[{text:'2019',value:'2019'},{text:'2018',value:'2018'},{text:'2017',value:'2017'}]"
           :filter-method="filterHandler"
           filter-placement="bottom-end"
@@ -72,19 +74,19 @@
             </template>
           </el-table-column>
           
-          <el-table-column label="填报时间" :sortable="true">
+          <el-table-column align="center" label="填报时间" :sortable="true">
             <template slot-scope="{row}">
               <span>{{row.post_time}}</span>
             </template>
           </el-table-column>
           
-          <el-table-column label="填报人">
+          <el-table-column align="center" label="填报人">
             <template slot-scope="{row}">
               <span>{{row.poster}}</span>
             </template>            
           </el-table-column>
 
-          <el-table-column label="备注" :show-overflow-tooltip="true">
+          <el-table-column align="center" label="备注" :show-overflow-tooltip="true">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.remarks" size="mini"></el-input>
@@ -93,7 +95,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column fixed="right" label="操作">
+          <el-table-column fixed="right" align="center" label="操作">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-button type="text"  size="mini" @click="confirmEdit(row)">确定</el-button>

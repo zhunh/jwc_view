@@ -30,7 +30,7 @@
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
-          size="medium"
+          size="small"
           border
           style="width: 100%"
         >

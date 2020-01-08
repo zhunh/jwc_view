@@ -33,7 +33,7 @@
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
-          size="medium"
+          size="small"
           style="width: 100%"
         >
           <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->
