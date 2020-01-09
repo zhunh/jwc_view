@@ -1,8 +1,16 @@
 <template>
 <!-- 只包含头部的的router-view -->
     <div>
-        <Headerq />
-        <router-view/>
+        <el-row>
+            <el-col>
+                <Headerq />
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col>
+                <router-view/>
+            </el-col>
+        </el-row>        
     </div>
 </template>
 <script>

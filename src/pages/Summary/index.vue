@@ -10,7 +10,7 @@
               <SCO/>
             </el-col>
         </el-row>     -->
-      <el-row>
+      <!-- <el-row> -->
         <el-tabs type="border-card">
           <el-tab-pane>
             <span slot="label"><i class="el-icon-date"></i> 关键指标汇总表</span>
@@ -18,12 +18,14 @@
           </el-tab-pane>
           <el-tab-pane label="分数统计"><SCO/></el-tab-pane>        
         </el-tabs>        
-      </el-row>
+      <!-- </el-row> -->
+      <Footer/>
     </div>
 </template>
 <script>
 import SMY from './components/sumary'
 import SCO from './components/score'
+import Footer from '../../Layout/footer'
 export default {
   data(){
     return{
@@ -31,7 +33,7 @@ export default {
     }
   },
   components:{
-    SMY,SCO
+    SMY,SCO,Footer
   }
 }
 </script>

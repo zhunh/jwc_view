@@ -29,7 +29,6 @@
         <el-table
           :data="tableData"
           v-loading="loading"
-          max-height="500"
           :highlight-current-row="true"
           :fit="true"
           border
@@ -53,7 +52,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column align="center" label-class-name="warning-row" label="教学主持本科工程" :sortable="true">
+          <el-table-column :render-header="labelRender" align="center" label-class-name="warning-row" label="教学主持本科工程" :sortable="true">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.engineering_project_num" size="mini" class="edit-input"></el-input>
@@ -160,6 +159,23 @@ export default {
   },
   components:{ SelectYear },
   methods: {
+    labelRender(h,{column,index}){
+      console.log(h,index)
+      let l = column.label.length
+      if(l>4){
+        return h('el-tooltip',{
+          props:{
+            content:column.label,
+          },
+          placement:'top',
+          domProps:{
+            innerHTML:column.label.slice(0,3)+'...'
+          }
+        },[h('span')])
+      }else{
+        return column.label
+      }
+    },     
     handleClick(obj) {
       this.dialogVisible = true;
       this.checkLook = obj;

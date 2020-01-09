@@ -49,14 +49,14 @@ const routes = [
                     {
                         path: '/',
                         name: 'Form',
-                        component: () => import('@/pages/table/index'),
+                        component: () => import('@/pages/MajorDetail/index'),
                         meta: { title: 'Form', icon: 'form' }
                     },
                     // http://localhost:8080/#/layout/table
                     {
-                        path: 'table',
-                        name: 'table',
-                        component: () => import('@/pages/table/index'),
+                        path: 'mdetail',
+                        name: 'mdetail',
+                        component: () => import('@/pages/MajorDetail/index'),
                     },
                     {
                         path: 'calendar',

@@ -35,7 +35,7 @@
         <el-menu-item index="/major/ep">教师主持本科教学工程</el-menu-item>
         <el-menu-item index="/major/ta">省级以上教学成果奖</el-menu-item>
       </el-submenu>    
-      <el-menu-item index="/major/table">
+      <el-menu-item index="/major/mdetail">
         <i class="el-icon-document"></i>
         <span slot="title">专业详细情况</span>
       </el-menu-item>
@@ -53,7 +53,7 @@
 <style>
   .el-menu-test:not(.el-menu--collapse) {
     width: 200px;
-    min-height: 400px;
+    min-height: 100vh;
   }
 </style>
 <script>

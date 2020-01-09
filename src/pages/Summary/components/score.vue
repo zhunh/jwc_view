@@ -12,11 +12,11 @@
         <el-table
         :data="tableData"
         v-loading="loading"
-        max-height="500"
         :highlight-current-row="true"
         :fit="true"
         tooltip-effect="dark"
-        size="medium"
+        size="small"
+        border
         :cell-class-name="tableCellClassName"
         style="width: 100%"
         >
@@ -24,19 +24,19 @@
         <el-table-column type="index" fixed="left"></el-table-column>
         <el-table-column :show-overflow-tooltip="true" prop="major_name" fixed="left" label="专业名称"></el-table-column>
         <el-table-column prop="major_code" label="专业代码"></el-table-column>
-        <el-table-column prop="teacherScore" width="100" label="专任教师人数得分"></el-table-column>
-        <el-table-column prop="ssbScore" width="110" label="师生比得分" :sortable="true"></el-table-column>
-        <el-table-column prop="bsbScore" width="100" label="博士学位教师占比得分"></el-table-column>
-        <el-table-column prop="fgScore" label="副高以上教师人数得分"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="teacherScore" label="专任教师人数得分"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="ssbScore" label="师生比得分"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="bsbScore" label="博士学位教师占比得分"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="fgScore" label="副高以上教师人数得分"></el-table-column>
         <el-table-column prop="erScore" label="就业率"></el-table-column>
         <el-table-column prop="mcrScore" label="调剂率"></el-table-column>
-        <el-table-column prop="trScore" width="100" label="转出率"></el-table-column>
+        <el-table-column prop="trScore" label="转出率"></el-table-column>
         <el-table-column prop="prScore" label="考研率"></el-table-column>
-        <el-table-column prop="sccScore" label="学生学科竞赛"></el-table-column>
-        <el-table-column prop="sppScore" label="学生论文专利"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="sccScore" label="学生学科竞赛"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="sppScore" label="学生论文专利"></el-table-column>
         <el-table-column prop="rpScore" label="教改论文"></el-table-column>
-        <el-table-column prop="tppScore" label="教师主持科研项目"></el-table-column>
-        <el-table-column prop="epScore" label="教师主持省级教学工程项目"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="tppScore" label="教师主持科研项目"></el-table-column>
+        <el-table-column :render-header="labelRender" prop="epScore" label="教师主持省级教学工程项目"></el-table-column>
         <el-table-column prop="taScore" label="教学成果"></el-table-column>        
         <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
@@ -164,6 +164,24 @@ export default {
 
   },
   methods: {
+    labelRender(h,{column,index}){
+      console.log(h,index)
+      let l = column.label.length
+      if(l>4){
+        // return h('el-tooltip',{style:{width:'100%'}},[column.label.slice(0,l-1)])
+        return h('el-tooltip',{
+          props:{
+            content:column.label,
+          },
+          placement:'top',
+          domProps:{
+            innerHTML:column.label.slice(0,3)+'...'
+          }
+        },[h('span')])
+      }else{
+        return column.label
+      }
+    },    
     handleClick(obj) {
       this.drawer = true;
       this.checkLook = obj;

@@ -12,7 +12,6 @@
         <el-table
         :data="tableData"
         v-loading="loading"
-        max-height="500"
         :highlight-current-row="true"
         :fit="true"
         tooltip-effect="dark"

@@ -49,15 +49,11 @@
                         <el-button style="float: right; padding: 3px 0" type="text">操作</el-button>
                     </div>
                     <majorPie></majorPie>            
-                </el-card>   
-                <el-divider></el-divider>
-                <el-card shadow="never">
-                    <!-- <div id="mychart" style="width:600px;height:400px;"></div>   
-                    <div id="mychart02" style="width:600px;height:400px;"></div>                  -->
-                </el-card>                    
+                </el-card>
                 </el-row>           
             </el-col>       
         </el-row>
+        <Footer/>
     </div>
 </template>
 <style scoped>
@@ -87,13 +83,14 @@
 </style>
 <script>
 import majorPie from './components/majorPie'
+import Footer from '../../Layout/footer'
 export default {
     data(){
         return{
             picRun:false,
         }
     },
-    components:{majorPie},
+    components:{majorPie,Footer},
     methods:{
         // drawLine(){
         // // 基于准备好的dom，初始化echarts实例

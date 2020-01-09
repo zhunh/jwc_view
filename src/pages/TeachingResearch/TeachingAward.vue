@@ -29,11 +29,11 @@
         <el-table
           :data="tableData"
           v-loading="loading"
-          max-height="500"
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
           size="small"
+          border
           style="width: 100%"
         >
           <!-- <el-table-column type="selection" fixed="left"></el-table-column> -->

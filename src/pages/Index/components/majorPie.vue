@@ -1,5 +1,5 @@
 <template>
-    <div id="myEchart" style="width:100%;height:400px;"></div>
+    <div id="myEchart" style="width:100%;height:calc(60vh);"></div>
 </template>
 <script>
 import {getMba} from '@/api/majorDetail'

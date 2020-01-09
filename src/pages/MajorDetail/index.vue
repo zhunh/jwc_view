@@ -37,7 +37,6 @@
         <el-table
           :data="tableData"
           v-loading="loading"
-          max-height="500"
           :highlight-current-row="true"
           :fit="true"
           tooltip-effect="dark"
@@ -65,10 +64,10 @@
           <el-table-column prop="teachers_yn" label="是否师范类专业" width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_user" label="填报人" min-width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_time" label="填报时间"></el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
+          <el-table-column fixed="right" label="操作">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
+              <!-- <el-button type="text" size="small">编辑</el-button> -->
             </template>
           </el-table-column>
         </el-table>

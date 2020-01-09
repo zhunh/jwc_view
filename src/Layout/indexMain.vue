@@ -1,5 +1,6 @@
 <template>
 <!-- 包含头部和左侧栏的router-view -->
+    <div>
     <el-container style="border: 1px solid #eee;height:calc(100vh - 61px);">
         <el-aside width="auto">
             <!-- Aside -->
@@ -11,9 +12,12 @@
                 <el-card>
                 <router-view/>
                 </el-card>
-            </el-main>     
+                <el-footer><Footer/></el-footer>
+            </el-main>   
+            
         </el-container>
     </el-container>
+    </div>
         <!-- footer -->
         <!-- <el-container> 
             <el-footer height="200px">Footer</el-footer>     
@@ -21,10 +25,11 @@
 </template>
 <script>
 import Siderbar from './sidebar'
+import Footer from './footer'
 export default {
     name: 'main',
     components: {
-        Siderbar
+        Siderbar,Footer
     },
     data(){
       return {
@@ -39,12 +44,6 @@ export default {
 }
 </script>
 <style scoped>
-  .el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
-    line-height: 60px;
-  }
   .el-aside {
     background-color: #fff;
     color: #333;
