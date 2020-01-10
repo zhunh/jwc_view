@@ -1,23 +1,35 @@
 <template>
-    <div id="myEchart" style="width:100%;height:calc(60vh);"></div>
+    <div id="myEchart" style="width:100%;height:calc(60vh);"></div>       
 </template>
 <script>
-import {getMba} from '@/api/majorDetail'
+import {getMgba} from '@/api/majorDetail'
 export default {
     data(){
         return{
-            mab:[{_id:"测试","academy_count":12}]
+            mab:[{_id:"测试","academy_count":12}],
         }
     },    
-    methods:{
+    methods:{        
         drawLine(){
             let myChart = this.$echarts.init(document.getElementById("myEchart"))
+            let that = this.$router
+            //点击事件
             myChart.on('click', function (params) {
-                // 控制台打印数据的名称
-                console.log(params.name);
+                that.push({  
+                    path: '/adetail',   
+                    name: 'adetail',  
+                    params: {   
+                        aca: params.name,   
+                    }  
+                    /*query: {  
+                        key: 'key',   
+                        msgKey: this.msg  
+                    }*/  
+                })                 
             });
+            
             myChart.showLoading();
-            getMba({}).then(re=>{
+            getMgba({}).then(re=>{
                 this.mab = re.result 
                 let option = {
                     legend: {

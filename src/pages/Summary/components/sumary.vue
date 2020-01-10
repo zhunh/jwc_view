@@ -139,38 +139,8 @@
         <div>正高：{{checkLook.full_professor}}</div>
         <div>副高：{{checkLook.associate_professor}}</div>
         <div>仪器设备总值：{{checkLook.value_of_equipment}}</div>
-        
-    <!-- <span v-for="(value,name) in checkLook" :key="name">{{ name }}:{{ value }}</span> -->
-        <div id="myEchart01" ref="myEchart01" style="width:400px;height:200px"></div>
-        <div ref="myEchart02" style="width:400px;height:200px"></div>
-        <!-- 
-        <div>就业率：
-          <ul>
-            <li v-for="(item,index) in checkLook.er" v-bind:key="index">{{item.year}}：{{item.employment_rate}}</li>
-          </ul>
-        </div>
-        <div>调剂率：
-          <ul>
-            <li v-for="(item,index) in checkLook.mcr" v-bind:key="index">{{item.year}}：{{item.major_convert_rate}}</li>
-          </ul>
-        </div>
-        <div>考研率：
-          <ul>
-            <li v-for="(item,index) in checkLook.pr" v-bind:key="index">{{item.year}}：{{item.postgraduate_rate}}</li>
-          </ul>
-        </div>
-        <div>教改论文：
-          <ul>
-            <li v-for="(item,index) in checkLook.rp" v-bind:key="index">{{item.year}}：{{item.research_paper}}</li>
-          </ul>          
-        </div>
-        <div>主持省级以上教研项目：
-          <ul>
-            <li v-for="(item,index) in checkLook.tpp" v-bind:key="index">{{item.year}}：{{item.teaching_project_province_num}}</li>
-          </ul>           
-        </div>
-        <div>主持省级以上本科教学工程：{{checkLook.engineering_project_num}}</div>
-        <div>近十年教学成果奖：{{checkLook.ta.teaching_achievement_award}}</div> -->
+        <div id="myEchart01" ref="myEchart01" style="width:100%;height:200px"></div>
+        <div ref="myEchart02" style="width:100%;height:200px"></div>
         </el-row>
     </el-drawer>    
     </div> 

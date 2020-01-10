@@ -2,7 +2,7 @@
     <div>
         <!-- <el-image :src="imgSrc"></el-image> -->
         <el-row>
-            <el-col :span="6">     
+            <!-- <el-col :span="6">     
                 <el-row>     
                 <el-card shadow="never">
                     <div slot="header" class="clearfix" >
@@ -40,17 +40,13 @@
                 </el-collapse>       
                 </el-card>     
                 </el-row>        
-            </el-col>     
-            <el-col :span="18">
+            </el-col>      -->
+            <el-col :span="18" offset="3">
                 <el-row>
-                <el-card shadow="never">
-                    <div slot="header" class="clearfix">
-                        <span>学校专业分布：</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作</el-button>
-                    </div>
-                    <majorPie></majorPie>            
-                </el-card>
-                </el-row>           
+                    <el-card>
+                        <majorPie></majorPie>
+                    </el-card>
+                </el-row>
             </el-col>       
         </el-row>
         <Footer/>
@@ -87,10 +83,13 @@ import Footer from '../../Layout/footer'
 export default {
     data(){
         return{
-            picRun:false,
+            picRun:false        
         }
     },
-    components:{majorPie,Footer},
+    components:{
+        majorPie,
+        Footer
+    },
     methods:{
         // drawLine(){
         // // 基于准备好的dom，初始化echarts实例
@@ -163,7 +162,7 @@ export default {
         // }
     },
     mounted(){
-        this.drawLine()
+        // this.drawLine()
     }
 }
 </script>

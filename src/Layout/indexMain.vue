@@ -9,7 +9,7 @@
         <el-container direction="vertical">
             <el-main>
                 <!-- Main -->
-                <el-card>
+                <el-card style="min-height:60vh">
                 <router-view/>
                 </el-card>
                 <el-footer><Footer/></el-footer>

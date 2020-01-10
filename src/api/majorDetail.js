@@ -5,7 +5,7 @@ import request from '../utils/request'
  */
 export function fetchList(query){
     return request({
-        url: '/table/query',
+        url: '/md/query',
         method: 'get',
         params: query
     })
@@ -16,17 +16,25 @@ export function fetchList(query){
  */
 export function deleteMany(obj){
     return request({
-        url: '/table/delete',
+        url: '/md/delete',
         method: 'post',
         data:{
             ids: obj
         }
     })
 }
-
+// get major group by academy
+export function getMgba(query){
+    return request({
+        url: '/md/mba',
+        method: 'get',
+        params: query
+    })
+}
+// get major by academy
 export function getMba(query){
     return request({
-        url: '/table/mba',
+        url: '/md/mjs',
         method: 'get',
         params: query
     })

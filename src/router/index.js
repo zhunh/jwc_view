@@ -26,6 +26,15 @@ const routes = [
                 component: () => import('@/pages/Index/index_main')
             },
             {
+                path: '/adetail',
+                name: 'adetail',
+                component: () => import('@/pages/Detail/aDetail')
+            },
+            {
+                path: '/mdetail',
+                component: () => import('@/pages/Detail/mDetail')
+            },                        
+            {
                 path:'summary',
                 component:()=>import('@/pages/Summary')
             },
@@ -49,7 +58,7 @@ const routes = [
                     {
                         path: '/',
                         name: 'Form',
-                        component: () => import('@/pages/MajorDetail/index'),
+                        component: () => import('@/pages/Index/index_major'),
                         meta: { title: 'Form', icon: 'form' }
                     },
                     // http://localhost:8080/#/layout/table
