@@ -1,7 +1,11 @@
 <template>
     <div style="padding:10px;">
         <el-row :gutter="20">
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="4">
+            <div class="grid-content bg-purple">
+
+            </div>
+        </el-col>
         <el-col :span="16">
             <div class="grid-content bg-purple">
                 <el-table 
@@ -10,6 +14,7 @@
                 :fit="true"
                 v-loading="loading"
                 :highlight-current-row="true"
+                size="small"
                 >
                     <el-table-column align="center" type="index" fixed="left"></el-table-column>
                     <el-table-column label="用户">
@@ -38,7 +43,11 @@
                 </el-table>
             </div>
         </el-col>
-        <el-col :span="4"><div class="grid-content bg-purple"></div></el-col>
+        <el-col :span="4">
+            <div class="grid-content bg-purple">
+
+            </div>
+        </el-col>
         </el-row>
     </div>
 </template>
@@ -53,6 +62,8 @@ export default {
     },
     created() {
         this.getData()
+        console.log(this.$router.options.routes)
+        console.log(this.$route)
     },
     methods:{
         getData(){

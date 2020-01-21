@@ -23,32 +23,39 @@ const routes = [
         children:[
             {
                 path: '/',
-                component: () => import('@/pages/Index/index_main')
+                component: () => import('@/pages/Index/index_main'),
+                meta:{title:'主页'}
             },
             {
                 path: '/adetail',
                 name: 'adetail',
-                component: () => import('@/pages/Detail/aDetail')
+                component: () => import('@/pages/Detail/aDetail'),
+                meta:{title:'学院专业详情'}
             },
             {
                 path: '/mdetail',
-                component: () => import('@/pages/Detail/mDetail')
+                component: () => import('@/pages/Detail/mDetail'),
+                meta:{title:'专业详情'}
             },                        
             {
                 path:'summary',
-                component:()=>import('@/pages/Summary')
+                component:()=>import('@/pages/Summary'),
+                meta:{title:'专业指标汇总'}
             },
             {
                 path:'dataIn',
-                component:()=>import('@/pages/DataIn/datain')
+                component:()=>import('@/pages/DataIn/datain'),
+                meta:{title:'数据采集'}
             },
             {
                 path:'user',
-                component:()=>import('@/pages/User')
+                component:()=>import('@/pages/User'),
+                meta:{title:'用户管理'}
             },            
             {
                 path:'dataManage',
-                component:()=>import('@/pages/DataManage/dataManage')
+                component:()=>import('@/pages/DataManage/dataManage'),
+                meta:{title:'数据管理'}
             },            
             {
                 path: '/major', // 各专业信息表页面
@@ -57,53 +64,82 @@ const routes = [
                 children: [
                     {
                         path: '/',
-                        name: 'Form',
+                        name: 'index_major',
                         component: () => import('@/pages/Index/index_major'),
-                        meta: { title: 'Form', icon: 'form' }
+                        meta: { title: '关键指标首页', icon: 'el-icon-s-promotion' }
                     },
-                    // http://localhost:8080/#/layout/table
                     {
                         path: 'mdetail',
                         name: 'mdetail',
                         component: () => import('@/pages/MajorDetail/index'),
-                    },
-                    {
-                        path: 'calendar',
-                        name: 'Calendar',
-                        component: () => import('@/pages/Calendar/calendar')
-                    },
-                    {
-                        path:'er',
-                        component:()=>import('@/pages/CQ/EmploymentRate')
-                    },
-                    {
-                        path:'pr',
-                        component:()=>import('@/pages/CQ/PostgraduateRate')
-                    },
-                    {
-                        path:'mcr',
-                        component:()=>import('@/pages/CQ/MajorConvertRate')
+                        meta:{title:'专业详细信息',icon:'el-icon-document'}
                     },
                     {
                         path:'condition',
-                        component:()=>import('@/pages/BasicCondition/BasicCondition')
-                    },
+                        component:()=>import('@/pages/BasicCondition/BasicCondition'),
+                        meta:{title:'专业基本条件',icon:'el-icon-wind-power'}
+                    },                    
+                    // http://localhost:8080/#/major/cq/er
+                    // 培养质量
                     {
-                        path:'tpp',
-                        component:()=>import('@/pages/TeachingResearch/TeachingProjectProvince')
+                        path: 'cq',
+                        name: 'CQ',
+                        component:()=>import('@/Layout/Tmp'),
+                        redirect:'cq/er',
+                        meta:{title:'培养质量',icon:'el-icon-s-promotion'},
+                        children:[
+                            {
+                                path:'er',
+                                component:()=>import('@/pages/CQ/EmploymentRate'),
+                                meta:{title:'就业率'}
+                            },
+                            {
+                                path:'pr',
+                                component:()=>import('@/pages/CQ/PostgraduateRate'),
+                                meta:{title:'考研率'}
+                            },
+                            {
+                                path:'mcr',
+                                component:()=>import('@/pages/CQ/MajorConvertRate'),
+                                meta:{title:'调剂率'}
+                            },                            
+                        ]
                     },
+                    // 教学质量
                     {
-                        path:'rp',
-                        component:()=>import('@/pages/TeachingResearch/ResearchPaper')
+                        path:'tq',
+                        name:'教学研究',
+                        component:()=>import('@/Layout/Tmp'),
+                        meta:{title:'教学研究',icon: 'el-icon-s-order'},
+                        children:[
+                            {
+                                path:'tpp',
+                                component:()=>import('@/pages/TeachingResearch/TeachingProjectProvince'),
+                                meta:{title:'省级教研项目'}
+                            },
+                            {
+                                path:'rp',
+                                component:()=>import('@/pages/TeachingResearch/ResearchPaper'),
+                                meta:{title:'教改论文'}
+                            },
+                            {
+                                path:'ta',
+                                component:()=>import('@/pages/TeachingResearch/TeachingAward'),
+                                meta:{title:'教学成果奖'}
+                            },
+                            {
+                                path:'ep',
+                                component:()=>import('@/pages/TeachingResearch/EngineeringProject'),
+                                meta:{title:'本科教学工程'}
+                            },
+                        ]
                     },
-                    {
-                        path:'ta',
-                        component:()=>import('@/pages/TeachingResearch/TeachingAward')
-                    },
-                    {
-                        path:'ep',
-                        component:()=>import('@/pages/TeachingResearch/EngineeringProject')
-                    },
+                    // {
+                    //     path: 'calendar',
+                    //     name: 'Calendar',
+                    //     component: () => import('@/pages/Calendar/calendar'),
+                    //     meta:{title:'日历',icon:'el-icon-date'}
+                    // },                    
                     {
                         path: '*',
                         redirect: '/major'

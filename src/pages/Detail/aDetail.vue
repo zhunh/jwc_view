@@ -1,7 +1,6 @@
 <template>
-    <el-card>
-<el-page-header @back="goBack" v-bind:content="academy">
-</el-page-header>        
+    <el-card shadow="never">
+    <el-page-header @back="goBack" v-bind:content="academy"></el-page-header>        
         <el-table
           :data="tableData"
           v-loading="loading"
@@ -29,10 +28,12 @@
           <el-table-column :show-overflow-tooltip="true" prop="post_user" label="填报人" min-width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_time" label="填报时间"></el-table-column>
         </el-table>
+        <Root/>
     </el-card>
 </template>
 <script>
 import {getMba} from '@/api/majorDetail'
+import Root from '../../Layout/footer'
 export default {
     data(){
         return{
@@ -40,6 +41,9 @@ export default {
             academy:'',
             tableData:[]
         }
+    },
+    components:{
+        Root
     },
     methods: {
       goBack() {
