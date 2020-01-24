@@ -1,7 +1,7 @@
 <template>
     <div style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
         <el-menu
-        :default-active="activeIndex2"
+        :default-active="activeMenuNav"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
@@ -72,15 +72,24 @@ import getUser from '@/utils/GetCurrentUser'
         // squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png"
       }
     },
+    computed:{
+      activeMenuNav() {
+          const route = this.$route
+          const { meta, path } = route
+          // if set path, the sidebar will highlight the path you set
+          if (meta.activeMenu) {
+              return meta.activeMenu
+          }
+          return path
+      },      
+    },
     methods:{
-      handleSelect(){
-
-      },
+      handleSelect(){},
       logout(){
         sessionStorage.removeItem('userInfo')     
         sessionStorage.removeItem('jwctoken')  
         this.$router.push('/login')
-      }
+      },       
     },
     mounted(){
       this.username = getUser()

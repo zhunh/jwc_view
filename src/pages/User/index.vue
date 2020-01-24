@@ -63,7 +63,7 @@ export default {
     created() {
         this.getData()
         console.log(this.$router.options.routes)
-        console.log(this.$route)
+        console.log(this.$route.matched)
     },
     methods:{
         getData(){

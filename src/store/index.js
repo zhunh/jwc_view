@@ -8,7 +8,8 @@ Vue.use(Vuex);
 // 4.定义仓库的 state、getters、mutations、actions、modules
 const state = {
     name:"泰勒斯威夫特",
-    majorList:[]
+    majorList:[],
+    siderbar:false
 }
 const getters = {
 
@@ -17,6 +18,9 @@ const mutations = {
     // 除了接收到state，还能接受一个 payload（参数）
     setName(state,payload){
         state.name = payload.newName
+    },
+    setSiderbar(state,payload){
+        state.siderbar = !state.siderbar
     },
     setMajorList(state,payload){
         state.majorList = payload.newList

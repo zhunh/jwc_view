@@ -2,29 +2,24 @@
     <div>
         <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
             <!-- <app-link :to="resolvePath(item.path)"> -->
-            <el-menu-item :index="resolvePath(onlyOneChild.path)">
-                <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title"/>
+            <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
+                <item  :title="onlyOneChild.meta.title"/>
             </el-menu-item>
             <!-- </app-link> -->
         </template>        
-        <template v-else>
-            <el-submenu ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
-                <template slot="title">
-                    <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title"/>
-                </template>
-                <sidebar-item
-                    v-for="child in item.children"
-                    :key="child.path"
-                    :item="child"
-                    :base-path="resolvePath(child.path)"
-                />                
-                <!-- <app-link v-for="c in item.children" :key="c.path" :to="c.path">
-                <el-menu-item  :index="c.path">
-                    <span v-if="c.meta">{{c.meta.title}}</span>
-                </el-menu-item>
-                </app-link> -->
-            </el-submenu>
-        </template>
+        <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body>
+            <template slot="title">
+                <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title"/>
+            </template>
+            <sidebar-item
+                v-for="child in item.children"
+                :key="child.path"
+                :item="child"
+                :is-nest="true"
+                :base-path="resolvePath(child.path)"
+                class="nest-menu"
+            />                
+        </el-submenu>
     </div>
 </template>
 <script>
@@ -42,10 +37,14 @@ export default {
             type:Object,
             required:true
         },
+        isNest: {
+            type: Boolean,
+            default: false
+        },        
         basePath: {
             type: String,
             default: ''
-        },        
+        }
     },
     components:{
         // AppLink,
@@ -77,9 +76,9 @@ export default {
         return false
         },
         resolvePath(routePath){
-            console.log(this.basePath)
-            console.log(routePath)
-            console.log(path.resolve(this.basePath, routePath))
+            // console.log(this.basePath)
+            // console.log(routePath)
+            // console.log(path.resolve(this.basePath, routePath))
             return path.resolve(this.basePath, routePath)
         }
     }

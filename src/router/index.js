@@ -66,7 +66,7 @@ const routes = [
                         path: '/',
                         name: 'index_major',
                         component: () => import('@/pages/Index/index_major'),
-                        meta: { title: '关键指标首页', icon: 'el-icon-s-promotion' }
+                        meta: { title: '专业基本状态', icon: 'el-icon-s-promotion' }
                     },
                     {
                         path: 'mdetail',
