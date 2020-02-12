@@ -1,14 +1,14 @@
 <template>
     <div>
-    <el-card class="box-card" shadow="never">
-        <div slot="header" class="clearfix">
-            <el-input label="搜索" size="mini" style="width:150px;"></el-input>
-            <el-button type="primary" size="mini">搜索</el-button>
-            <div style="float: right;">
-            <SelectYear :all-disabled="true" v-model="page.selectYear"/>
-            <el-button style=" padding: 3px 0" type="text">操作</el-button>
-            </div>
-        </div>
+        <!-- 操作栏 -->
+        <el-row style="padding:0 0 10px 0;">
+          <el-form ref="searchForm" style="float:right;">
+              <SelectYear :all-disabled="true" v-model="page.selectYear"/>
+              <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
+              <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
+          </el-form>
+        </el-row>
+        <!-- 表格 -->
         <el-table
         :data="tableData"
         v-loading="loading"
@@ -120,7 +120,7 @@
             ></el-pagination>
             </el-col>
         </el-row>                     
-    </el-card>   
+        
     <el-drawer
     title="详情"
     :visible.sync="drawer"

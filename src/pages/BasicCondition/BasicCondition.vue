@@ -2,23 +2,12 @@
   <div>
     <!--操作栏-->
     <el-row>
-      <el-col :span="12" class="grid" :offset="0">
-        <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-        <el-button type="warning" icon="el-icon-share" size="mini"></el-button> -->
-        <el-button type="info" icon="el-icon-delete" size="mini"></el-button>
-        <!-- <el-button type="danger" icon="el-icon-download" size="mini" @click="export2excel">导出</el-button>
-        <el-button type="primary" size="mini">
-          上传
-          <i class="el-icon-upload el-icon--right"></i>
-        </el-button> -->
-      </el-col>
-      <el-col :span="12" class="grid" :offset="0">
-        <el-form ref="searchForm" style="float:right;">
-            <SelectYear v-model="page.selectYear"/>
-            <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
-            <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
-        </el-form>
-      </el-col>
+      <el-button v-if="userRole == 3" type="info" icon="el-icon-delete" size="mini"></el-button>
+      <el-form ref="searchForm" style="float:right;">
+          <SelectYear v-model="page.selectYear"/>
+          <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
+          <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
+      </el-form>
 
     </el-row>
     <el-row>
@@ -115,7 +104,7 @@
             </template>             
           </el-table-column>
 
-          <el-table-column fixed="right" label="操作" width="100">
+          <el-table-column v-if="userRole == 3" fixed="right" label="操作" width="100">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-button type="text" size="small" @click="confirmEdit(row)">确定</el-button>
@@ -163,6 +152,7 @@
 <script>
 import { fetchList,updateCo } from '@/api/basicCondition'
 import SelectYear from '@/components/SelectYear'
+import getUser from '@/utils/GetCurrentUser'
 export default {
   data() {
     return {
@@ -183,6 +173,11 @@ export default {
   },
   components:{
     SelectYear
+  },
+  computed:{
+    userRole(){
+      return getUser().role
+    }
   },
   methods: {
     handleClick(obj) {
@@ -301,13 +296,7 @@ export default {
 </script>
 <style scoped>
   .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* background-color: rgb(214, 203, 203); */
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .el-col {
-    border-radius: 4px;
   }
 </style>

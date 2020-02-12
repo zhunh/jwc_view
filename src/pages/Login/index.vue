@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" :style="bgStyle">
+  <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
@@ -53,6 +53,7 @@
 </template>
 <script>
 import axios from 'axios'
+import {login} from '../../api/user'
 // console.log(process.env)
 export default {
     data(){
@@ -67,15 +68,13 @@ export default {
             },
             loading: false,
             passwordType: 'password',
-            bgStyle:{
-                height: '100vh',
-                width: '100%',
-                // backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
-                backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
-                backgroundRepeat: "no-repeat",
-                // backgroundRepeat: "no-repeat",
-                backgroundSize: "100% auto",
-            }
+            // bgStyle:{
+            //     height: '100vh',
+            //     width: '100%',
+            //     backgroundImage: 'url('+require('@/assets/laptop.jpeg')+')',
+            //     backgroundRepeat: "no-repeat",
+            //     backgroundSize: "100% auto",
+            // }
         }
     },
     methods: {
@@ -91,25 +90,46 @@ export default {
         },
         handleLogin(){
             // TODO
-            axios.post(process.env.VUE_APP_APIURL + '/users/login',this.loginForm).then(res=>{               
-                if (res.data.code === 0){
+            // axios.post(process.env.VUE_APP_APIURL + '/users/login',this.loginForm).then(res=>{               
+            //     if (res.data.code === 0){
+            //         // 1.将当前登录的用户信息给保存起来
+            //         sessionStorage.setItem("userInfo",JSON.stringify(res.data.data.userInfo))
+            //         // 2.将 token 保存
+            //         sessionStorage.setItem("jwctoken",res.data.data.token)
+            //         this.$router.push('/')
+            //     }else{
+            //         this.$message({
+            //             message: res.data.msg,
+            //             type: 'error'       
+            //         });
+            //     }
+            // }).catch((err)=>{
+            //   this.$message({
+            //       message: err.message,
+            //       type: 'error'       
+            //   });              
+            // });     
+            login(this.loginForm).then(res=>{    
+              console.log(res)           
+                if (res.code === 90000){
                     // 1.将当前登录的用户信息给保存起来
-                    sessionStorage.setItem("userInfo",JSON.stringify(res.data.data.userInfo))
+                    sessionStorage.setItem("userInfo",JSON.stringify(res.result.userInfo))
                     // 2.将 token 保存
-                    sessionStorage.setItem("jwctoken",res.data.data.token)
+                    sessionStorage.setItem("jwctoken",res.result.token)
                     this.$router.push('/')
                 }else{
                     this.$message({
-                        message: res.data.msg,
+                        message: res.msg,
                         type: 'error'       
                     });
                 }
             }).catch((err)=>{
+              console.log(err)
               this.$message({
                   message: err.message,
                   type: 'error'       
               });              
-            });     
+            });
         }
     }
 }
@@ -159,6 +179,7 @@ $cursor: #fff;
     color: #454545;
   }
 }
+
 </style>
 
 <style lang="scss" scoped>
@@ -169,9 +190,11 @@ $light_gray:#eee;
 //   background-color: #283443;
 // }
 .login-container {
-  
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  background: url('~@/assets/laptop.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   // background-color: $bg;
   overflow: hidden;
 

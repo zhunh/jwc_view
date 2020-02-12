@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- dialogbox -->
     <el-dialog
       title="提示"
       :visible.sync="dialogDeVisible"
@@ -16,22 +17,14 @@
         <FileName v-model="filename"/>
         <BookType v-model="bookType"/>
         <el-button :loading="downloadLoading" type="danger" icon="el-icon-document" size="mini" @click="export2excel">导出</el-button>
-        <!-- <el-button type="primary" icon="el-icon-edit" size="mini" circle></el-button>
-        <el-button type="warning" icon="el-icon-share" size="mini"></el-button> -->
-        <el-button type="info" icon="el-icon-delete" size="mini" @click="deleteRows"></el-button>
-        <!-- <el-button type="primary" size="mini">
-          上传
-          <i class="el-icon-upload el-icon--right"></i>
-        </el-button> -->
-      <!-- </el-col>
-      <el-col :span="12" class="grid" :offset="0"> -->
+        <el-button type="info" v-if="userRole == 3" icon="el-icon-delete" size="mini" @click="deleteRows"></el-button>
         <el-form ref="searchForm" style="float:right; display:inline-block">
             <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
             <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
         </el-form>
       </el-col>
-
     </el-row>
+    <!-- 表格 -->
     <el-row>
       <el-col>
         <el-table
@@ -64,7 +57,7 @@
           <el-table-column prop="teachers_yn" label="是否师范类专业" width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_user" label="填报人" min-width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_time" label="填报时间"></el-table-column>
-          <el-table-column fixed="right" label="操作">
+          <el-table-column v-if="userRole == 3" fixed="right" label="操作">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
               <!-- <el-button type="text" size="small">编辑</el-button> -->
@@ -103,6 +96,8 @@
 import {fetchList, deleteMany} from "@/api/majorDetail";
 import BookType from '@/components/ExportBookType'
 import FileName from '@/components/ExportFileName'
+import getUser from '@/utils/GetCurrentUser'
+
 export default {
   components: { BookType, FileName },
   data() {
@@ -136,7 +131,10 @@ export default {
         }       
       });
       return idArray
-    }
+    },
+    userRole(){
+      return getUser().role
+    }    
   },
   methods: {
     handleClick(obj) {
@@ -252,13 +250,7 @@ export default {
 </script>
 <style scoped>
   .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* background-color: rgb(214, 203, 203); */
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .el-col {
-    border-radius: 4px;
   }
 </style>

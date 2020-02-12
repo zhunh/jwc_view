@@ -3,5 +3,5 @@ module.exports = ()=>{
     if(user==null){
         return 'Offline'
     }
-    return JSON.parse(user).username
+    return JSON.parse(user)
 }

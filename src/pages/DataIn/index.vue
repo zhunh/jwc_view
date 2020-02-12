@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <el-row>
+    <div v-if="userRole == 1">
+        无权限.
+    </div>
+    <div v-else>
+        <router-view/>
+        <!-- <el-row>
             <el-col :span="24">
                 <el-card shadow="never" style="min-height:50vh;">
-                    <!-- <div slot="header" class="clearfix">
-                        <span>卡片名称</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                    </div>             -->
                     <el-tabs tab-position="left">
                     <el-tab-pane label="专业基本条件"><MC></MC></el-tab-pane>
                     <el-tab-pane label="培养质量和教学"><ER></ER></el-tab-pane>
@@ -15,7 +15,7 @@
                     </el-tabs>
                 </el-card>                
             </el-col>
-        </el-row>
+        </el-row> -->
     </div>
 </template>
 <style scoped>
@@ -24,20 +24,18 @@
     /* margin-bottom: 10px; */
     padding: 10px 20px 10px 20px;
     /* background-color: rgb(255, 255, 255); */
-    background: url('~@/assets/bg-pic/doodles.png');
-    background-repeat: "repeat";     
+    /* background: url('~@/assets/bg-pic/doodles.png');
+    background-repeat: "repeat";      */
   }
 </style>
 <script>
-import ER from "./components/ER"
-import MC from "./components/MajorCondition"
-import Upload from "./components/Upload"
+import getUser from '@/utils/GetCurrentUser'
 export default {
-    components:{
-        ER,
-        MC,
-        Upload
-    },
+    computed:{
+        userRole(){
+            return getUser().role
+        }
+    },     
     created(){
          this.$store.dispatch('getMajorList');
     }

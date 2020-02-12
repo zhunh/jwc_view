@@ -2,7 +2,7 @@ import request from '../utils/request'
 
 export function getMajorList(){
     return request({
-        url: '/table/majorSet',
+        url: '/md/majorSet',
         method: 'get'
     })
 }

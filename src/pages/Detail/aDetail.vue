@@ -1,6 +1,6 @@
 <template>
-    <el-card shadow="never">
-    <el-page-header @back="goBack" v-bind:content="academy"></el-page-header>        
+    <div>
+        <el-page-header @back="goBack" v-bind:content="academy"></el-page-header>        
         <el-table
           :data="tableData"
           v-loading="loading"
@@ -28,12 +28,11 @@
           <el-table-column :show-overflow-tooltip="true" prop="post_user" label="填报人" min-width="120"></el-table-column>
           <el-table-column :show-overflow-tooltip="true" prop="post_time" label="填报时间"></el-table-column>
         </el-table>
-        <Root/>
-    </el-card>
+    </div>
 </template>
 <script>
 import {getMba} from '@/api/majorDetail'
-import Root from '../../Layout/footer'
+// import Root from '../../Layout/footer'
 export default {
     data(){
         return{
@@ -43,7 +42,7 @@ export default {
         }
     },
     components:{
-        Root
+        // Root
     },
     methods: {
       goBack() {
@@ -55,6 +54,7 @@ export default {
     },
     created(){
         let tmp = this.$route.params.aca
+        console.log(tmp)
         this.academy = this.$route.params.aca + " 所有专业"
         getMba({academy:tmp}).then(re=>{
             this.tableData = re.result
@@ -62,7 +62,6 @@ export default {
         }).catch(err=>{
             console.log(err)
         })       
-        console.log(tmp)
     }
 }
 </script>

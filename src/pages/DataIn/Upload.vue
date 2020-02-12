@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row>
       <el-col :span="24">
-        <el-card>
+        <!-- <el-card> -->
           <span>1.请选择导入类型：</span>
         <el-radio-group v-model="radio01">
           <el-radio-button label="a">导入教改论文</el-radio-button>
@@ -13,7 +13,7 @@
         <el-divider></el-divider>
         <span>2.选择导入Excel文件</span>
         <ExcelImportVue :on-success="handleSuccess" :before-upload="beforeUpload" />
-        </el-card>
+        <!-- </el-card> -->
       </el-col>        
     </el-row>
     <!-- <el-row>
@@ -38,7 +38,7 @@
 
 <script>
 import ExcelImportVue from '@/components/ExcelImport'
-import { paperHeader } from '../../../utils/TableHeaderSet'
+import { paperHeader } from '@/utils/TableHeaderSet'
 import { importList } from '@/api/excelImport'
 export default {
   name: 'UploadExcel',

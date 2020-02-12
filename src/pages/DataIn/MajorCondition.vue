@@ -1,65 +1,66 @@
 <template>
-    <el-card>
     <el-row>
-        <el-col :span="6">
-          <br>
-        </el-col>
-        <el-col :span="12">
-            <el-form :model="conditionForm" :rules="rules" ref="conditionForm" label-width="200px">
-                <el-form-item label="年份" prop="year" size="mini">
-                    <el-select v-model="conditionForm.year" placeholder="请选择年份">
-                    <el-option label="2019" value="2019"></el-option>
-                    <el-option label="2018" value="2018"></el-option>
-                    </el-select>
-                </el-form-item>        
-                <el-form-item label="专业" prop="selectMajor.major_name_school">
-                    <el-select v-model="conditionForm.selectMajor" value-key="major_name_school" filterable placeholder="请选择专业">
-                        <el-option
-                        v-for="item in majorList"
-                        :key="item._id"
-                        :label="item.major_name_school"
-                        :value="item">
-                        </el-option>
-                    </el-select>                    
-                </el-form-item>
-                <el-divider></el-divider>
-                <el-form-item label="专任教师人数" prop="teacher_num">
-                    <el-input-number v-model="conditionForm.teacher_num"></el-input-number>
-                </el-form-item>
-                <el-form-item label="在校生人数" prop="student_at_school">
-                    <el-input-number v-model="conditionForm.student_at_school"></el-input-number>
-                </el-form-item>
-                <el-form-item label="博士学位教师" prop="teacher_of_dr">
-                    <el-input-number v-model="conditionForm.teacher_of_dr"></el-input-number>
-                </el-form-item>
-                <el-form-item label="正高" prop="full_professor">
-                    <el-input-number v-model="conditionForm.full_professor"></el-input-number>
-                </el-form-item>    
-                <el-form-item label="副高" prop="associate_professor">
-                    <el-input-number v-model="conditionForm.associate_professor"></el-input-number>
-                </el-form-item> 
-                <el-form-item label="仪器设备总值" prop="value_of_equipment">
-                    <el-input-number v-model="conditionForm.value_of_equipment"></el-input-number>
-                </el-form-item>        
-                <el-form-item label="备注" prop="remarks">
-                    <el-input type="textarea" v-model="conditionForm.remarks"></el-input>
-                </el-form-item>                
-                <el-divider></el-divider>                                  
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('conditionForm')">立即创建</el-button>
-                    <el-button @click="resetForm('conditionForm')">重置</el-button>
-                </el-form-item>
-            </el-form>   
-        </el-col>
+      <el-form :model="conditionForm" :rules="rules" ref="conditionForm" label-width="200px">
+          <el-form-item label="年份" prop="year" size="mini">
+              <el-select v-model="conditionForm.year" placeholder="请选择年份">
+              <el-option label="2019" value="2019"></el-option>
+              <el-option label="2018" value="2018"></el-option>
+              </el-select>
+          </el-form-item>        
+          <el-form-item label="专业" prop="selectMajor.major_name_school">
+              <el-select v-model="conditionForm.selectMajor" value-key="major_name_school" filterable placeholder="请选择专业">
+                  <el-option
+                  v-for="item in majorList"
+                  :key="item._id"
+                  :label="item.major_name_school"
+                  :value="item">
+                  </el-option>
+              </el-select>                    
+          </el-form-item>
+
+          <el-divider content-position="left">年份专业</el-divider>
+
+          <el-form-item label="专任教师人数" prop="teacher_num">
+              <el-input-number v-model="conditionForm.teacher_num"></el-input-number>
+          </el-form-item>
+          <el-form-item label="在校生人数" prop="student_at_school">
+              <el-input-number v-model="conditionForm.student_at_school"></el-input-number>
+          </el-form-item>
+          <el-form-item label="博士学位教师" prop="teacher_of_dr">
+              <el-input-number v-model="conditionForm.teacher_of_dr"></el-input-number>
+          </el-form-item>
+          <el-form-item label="正高" prop="full_professor">
+              <el-input-number v-model="conditionForm.full_professor"></el-input-number>
+          </el-form-item>    
+          <el-form-item label="副高" prop="associate_professor">
+              <el-input-number v-model="conditionForm.associate_professor"></el-input-number>
+          </el-form-item> 
+          <el-form-item label="仪器设备总值" prop="value_of_equipment">
+              <el-input-number v-model="conditionForm.value_of_equipment"></el-input-number>
+          </el-form-item>        
+          <el-form-item label="备注" prop="remarks">
+              <el-input style="width:180px;" type="textarea" v-model="conditionForm.remarks"></el-input>
+          </el-form-item>      
+
+          <el-divider content-position="left">基本条件</el-divider>    
+
+          <el-form-item>
+              <el-button type="primary" @click="submitForm('conditionForm')">立即创建</el-button>
+              <el-button @click="resetForm('conditionForm')">重置</el-button>
+          </el-form-item>
+      </el-form>   
     </el-row> 
-    </el-card> 
 </template>
+
 <style scoped>
-/* .el-row{
-    background: url('~@/assets/bg-pic/doodles.png');
-    background-repeat: "repeat";   
-} */
+  .el-select,.el-input{
+    width:180px;
+  }
+  .el-divider{
+    width:460px;
+  }  
 </style>
+
 <script>
 import { mapState } from 'vuex'
 import { addCo } from '@/api/basicCondition'

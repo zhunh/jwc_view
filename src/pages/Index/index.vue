@@ -7,7 +7,7 @@
 
 <script>
 import Header from '../../Layout/header'
-import mainbody from './index_main'
+import mainbody from './index_content'
 export default {
     components:{
         Header,

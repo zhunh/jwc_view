@@ -1,97 +1,90 @@
 <template>
-    <el-card>
     <el-row>
-        <el-col :span="6">
-<br>
-        </el-col>
-        <el-col :span="12">
-            <el-form :model="aForm" :rules="rules" ref="aForm" label-width="200px">
-                <el-form-item label="年份" prop="year" size="mini">
-                    <el-select v-model="aForm.year" placeholder="请选择年份">
-                    <el-option label="2019" value="2019"></el-option>
-                    <el-option label="2018" value="2018"></el-option>
-                    </el-select>
-                </el-form-item>        
-                <el-form-item label="专业" prop="selectMajor.major_name_school">
-                    <el-select v-model="aForm.selectMajor" value-key="major_name_school" filterable placeholder="请选择专业">
-                        <el-option
-                        v-for="item in majorList"
-                        :key="item._id"
-                        :label="item.major_name_school"
-                        :value="item">
-                        </el-option>
-                    </el-select>                    
-                </el-form-item>
-                <!-- <el-form-item label="即时配送" prop="delivery">
-                    <el-switch v-model="aForm.delivery"></el-switch>
-                </el-form-item> -->
-                <el-divider content-position="left">年份和专业</el-divider>
-                <el-form-item label="就业率" prop="employment_rate">
-                  <el-input-number v-model="aForm.employment_rate"></el-input-number>
-                </el-form-item>
-                <el-form-item prop="er_remarks" size="mini">
-                  <el-input v-model="aForm.er_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>
-                <el-form-item label="考研率" prop="postgraduate_rate">
-                  <el-input-number v-model="aForm.postgraduate_rate"></el-input-number>
-                </el-form-item>
-                <el-form-item prop="pr_remarks" size="mini">
-                  <el-input v-model="aForm.pr_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>                
-                <el-form-item label="调剂率" prop="major_convert_rate">
-                  <el-input-number v-model="aForm.major_convert_rate"></el-input-number>
-                </el-form-item>
-                <el-form-item prop="mcr_remarks" size="mini">
-                  <el-input v-model="aForm.mcr_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>                
-                <el-divider></el-divider>
-                <el-form-item label="教改论文数量" prop="research_paper">
-                  <el-input-number v-model="aForm.research_paper"></el-input-number>
-                </el-form-item>      
-                <el-form-item prop="rp_remarks" size="mini">
-                  <el-input v-model="aForm.rp_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>
+      <el-form :model="aForm" :rules="rules" ref="aForm" label-width="200px">
+          <el-form-item label="年份" prop="year">
+              <el-select v-model="aForm.year" placeholder="请选择年份">
+              <el-option label="2019" value="2019"></el-option>
+              <el-option label="2018" value="2018"></el-option>
+              </el-select>
+          </el-form-item>        
+          <el-form-item label="专业" prop="selectMajor.major_name_school">
+              <el-select v-model="aForm.selectMajor" value-key="major_name_school" filterable placeholder="请选择专业">
+                  <el-option
+                  v-for="item in majorList"
+                  :key="item._id"
+                  :label="item.major_name_school"
+                  :value="item">
+                  </el-option>
+              </el-select>                    
+          </el-form-item>
+          
+          <el-divider content-position="left">年份和专业</el-divider>
 
-                <el-form-item label="主持省级教研项目数量" prop="teaching_project_province_num">
-                  <el-input-number v-model="aForm.teaching_project_province_num"></el-input-number>
-                </el-form-item>
-                <el-form-item prop="tpp_remarks"  size="mini">
-                  <el-input v-model="aForm.tpp_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>
-                  
-                <el-form-item label="主持本科教学工程项目" prop="engineering_project_num">
-                  <el-input-number v-model="aForm.engineering_project_num"></el-input-number>
-                </el-form-item>  
-                <el-form-item prop="ep_remarks" size="mini">
-                  <el-input v-model="aForm.ep_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>                
-                <el-form-item label="省级教学成果奖" prop="teaching_achievement_award">
-                  <el-input-number v-model="aForm.teaching_achievement_award"></el-input-number>
-                </el-form-item>       
-                <el-form-item prop="taa_remarks" size="mini">
-                  <el-input v-model="aForm.taa_remarks" placeholder="备注(可不填)"></el-input>
-                </el-form-item>                                                     
-                <el-divider></el-divider>
-                <el-form-item>
-                    <el-button type="primary" @click="submitForm('aForm')">立即创建</el-button>
-                    <el-button @click="resetForm('aForm')">重置</el-button>
-                </el-form-item>
-            </el-form>  
-        </el-col>
-        <el-col :span="9">
-<!-- <el-card class="box-card">
-  <div slot="header" class="clearfix">
-    <span>提示信息</span>
-  </div>
-  <div v-for="o in 4" :key="o" class="text item">
-    {{'列表内容 ' + o }}
-  </div>
-</el-card> -->
-        </el-col>        
+          <el-form-item label="就业率" prop="employment_rate">
+            <el-input-number v-model="aForm.employment_rate"></el-input-number>
+          </el-form-item>
+          <el-form-item prop="er_remarks" size="mini">
+            <el-input v-model="aForm.er_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>
+          <el-form-item label="考研率" prop="postgraduate_rate">
+            <el-input-number v-model="aForm.postgraduate_rate"></el-input-number>
+          </el-form-item>
+          <el-form-item prop="pr_remarks" size="mini">
+            <el-input v-model="aForm.pr_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>                
+          <el-form-item label="调剂率" prop="major_convert_rate">
+            <el-input-number v-model="aForm.major_convert_rate"></el-input-number>
+          </el-form-item>
+          <el-form-item prop="mcr_remarks" size="mini">
+            <el-input style="width:180px;" v-model="aForm.mcr_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>   
+
+          <el-divider content-position="left">培养质量</el-divider>
+
+          <el-form-item label="教改论文数量" prop="research_paper">
+            <el-input-number v-model="aForm.research_paper"></el-input-number>
+          </el-form-item>      
+          <el-form-item prop="rp_remarks" size="mini">
+            <el-input v-model="aForm.rp_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>
+
+          <el-form-item label="主持省级教研项目数量" prop="teaching_project_province_num">
+            <el-input-number v-model="aForm.teaching_project_province_num"></el-input-number>
+          </el-form-item>
+          <el-form-item prop="tpp_remarks"  size="mini">
+            <el-input v-model="aForm.tpp_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>
+            
+          <el-form-item label="主持本科教学工程项目" prop="engineering_project_num">
+            <el-input-number v-model="aForm.engineering_project_num"></el-input-number>
+          </el-form-item>  
+          <el-form-item prop="ep_remarks" size="mini">
+            <el-input v-model="aForm.ep_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>                
+          <el-form-item label="省级教学成果奖" prop="teaching_achievement_award">
+            <el-input-number v-model="aForm.teaching_achievement_award"></el-input-number>
+          </el-form-item>       
+          <el-form-item prop="taa_remarks" size="mini">
+            <el-input v-model="aForm.taa_remarks" placeholder="备注(可不填)"></el-input>
+          </el-form-item>    
+
+          <el-divider content-position="left">教学研究</el-divider>
+
+          <el-form-item>
+              <el-button type="primary" @click="submitForm('aForm')">立即创建</el-button>
+              <el-button @click="resetForm('aForm')">重置</el-button>
+          </el-form-item>
+      </el-form>       
     </el-row> 
-    </el-card>
 </template>
-
+<style scoped>
+  .el-select,.el-input{
+    width:180px;
+  }
+  .el-divider{
+    width:460px;
+  }
+</style>
 <script>
 import { mapState } from 'vuex'
 import { addEr } from '@/api/employmentRate'
@@ -340,6 +333,9 @@ import { addPr } from '@/api/postgraduateRate'
       resetForm(formName) {
         this.aForm.$refs[formName].resetFields();
       }
-    }
+    },
+    created(){
+         this.$store.dispatch('getMajorList');
+    }    
   }
 </script>

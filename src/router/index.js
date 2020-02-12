@@ -6,6 +6,7 @@ import Tag from '@/components/TagTest'
 import Element from '@/components/ElementTest'
 import VueRouter from 'vue-router'
 import LoginVue from '@/pages/Login/index'
+import getUser from '@/utils/GetCurrentUser'
 // 重写 push方法 解决不能两次跳转相同 url 的问题
 const routerPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
@@ -20,64 +21,56 @@ const routes = [
         path: '/',
         name: 'IndexPage', //主页
         component: () => import('@/Layout/index'),
-        children:[
+        children:[          
             {
-                path: '/',
-                component: () => import('@/pages/Index/index_main'),
-                meta:{title:'主页'}
-            },
-            {
-                path: '/adetail',
-                name: 'adetail',
-                component: () => import('@/pages/Detail/aDetail'),
-                meta:{title:'学院专业详情'}
-            },
-            {
-                path: '/mdetail',
-                component: () => import('@/pages/Detail/mDetail'),
-                meta:{title:'专业详情'}
-            },                        
-            {
-                path:'summary',
-                component:()=>import('@/pages/Summary'),
-                meta:{title:'专业指标汇总'}
-            },
-            {
-                path:'dataIn',
-                component:()=>import('@/pages/DataIn/datain'),
-                meta:{title:'数据采集'}
-            },
-            {
-                path:'user',
-                component:()=>import('@/pages/User'),
-                meta:{title:'用户管理'}
-            },            
-            {
-                path:'dataManage',
-                component:()=>import('@/pages/DataManage/dataManage'),
-                meta:{title:'数据管理'}
-            },            
-            {
-                path: '/major', // 各专业信息表页面
+                path: '/', // 各专业信息表页面
                 name: 'Layout',
                 component: () => import('@/Layout/indexMain'),
                 children: [
                     {
                         path: '/',
                         name: 'index_major',
-                        component: () => import('@/pages/Index/index_major'),
-                        meta: { title: '专业基本状态', icon: 'el-icon-s-promotion' }
+                        component: () => import('@/pages/Index/majorPie'),
+                        meta: { title: '基本状态', icon: 'el-icon-pie-chart' },
                     },
                     {
-                        path: 'mdetail',
-                        name: 'mdetail',
+                        path:'summary',
+                        name:'summary',
+                        redirect:'sa',
+                        component:()=>import('@/Layout/Tmp'),
+                        meta:{title:'汇总统计',icon:'el-icon-menu'},
+                        children:[
+                            {
+                                path:'sa',
+                                name:'sa',
+                                component:()=>import('@/pages/Summary/sumary'),
+                                meta:{title:'专业指标汇总'}
+                            },   
+                            {
+                                path:'score',
+                                name:'score',
+                                component:()=>import('@/pages/Summary/score'),
+                                meta:{title:'专业得分统计'}
+                            },                                                       
+                        ]
+                    },                    
+                    {
+                        path: '/adetail/:aca',
+                        // name: 'adetail',
+                        hidden: true,
+                        component: () => import('@/pages/Detail/aDetail'),
+                        meta:{title:'学院专业详情'}
+                    },                    
+                    {
+                        path: 'm-detail',
+                        name: 'm-detail',
                         component: () => import('@/pages/MajorDetail/index'),
-                        meta:{title:'专业详细信息',icon:'el-icon-document'}
+                        meta:{title:'详细信息',icon:'el-icon-document'}
                     },
                     {
                         path:'condition',
                         component:()=>import('@/pages/BasicCondition/BasicCondition'),
-                        meta:{title:'专业基本条件',icon:'el-icon-wind-power'}
+                        meta:{title:'基本条件',icon:'el-icon-files'}
                     },                    
                     // http://localhost:8080/#/major/cq/er
                     // 培养质量
@@ -130,7 +123,7 @@ const routes = [
                             {
                                 path:'ep',
                                 component:()=>import('@/pages/TeachingResearch/EngineeringProject'),
-                                meta:{title:'本科教学工程'}
+                                meta:{title:'本科教学工程'},
                             },
                         ]
                     },
@@ -139,14 +132,70 @@ const routes = [
                     //     name: 'Calendar',
                     //     component: () => import('@/pages/Calendar/calendar'),
                     //     meta:{title:'日历',icon:'el-icon-date'}
-                    // },                    
+                    // },   
                     {
-                        path: '*',
-                        redirect: '/major'
-                    }
+                        path:'data-in',
+                        component:()=>import('@/pages/DataIn/'), //这里中间页面作为权限控制
+                        // redirect:'collect',
+                        meta:{title:'数据采集',icon:'el-icon-s-data'},
+                        children:[
+                            {
+                                path:'collect',
+                                component:()=>import('@/pages/DataIn/ER'),
+                                meta:{title:'培养质量和教学研究'}
+                            },
+                            {
+                                path:'bcondtion',
+                                component:()=>import('@/pages/DataIn/MajorCondition'),
+                                meta:{title:'专业基本条件'}
+                            },     
+                            {
+                                path:'importRp',
+                                component:()=>import('@/pages/DataIn/Upload'),
+                                meta:{title:'表格导入'}
+                            },                                                      
+                        ]
+                    },
+                    {
+                        path:'user',
+                        name:'user',
+                        component:()=>import('@/Layout/Tmp'),
+                        redirect:'query',
+                        meta:{title:'用户管理',icon:'el-icon-user-solid'},
+                        children:[
+                            {
+                                path:'query',
+                                name:'query',
+                                component:()=>import('@/pages/User'),
+                                meta:{title:'用户列表'}
+                            },
+                            {
+                                path:'add',
+                                name:'add',
+                                component:()=>import('@/pages/User/add'),
+                                meta:{title:'添加用户'}
+                            },
+                            {
+                                path:'update/:id',
+                                name:'update',
+                                hidden:true,
+                                component:()=>import('@/pages/User/update'),
+                                meta:{title:'修改用户'}
+                            }                                            
+                        ]
+                    },                                                      
+                    // {
+                    //     path: '*',
+                    //     redirect: '/'
+                    // }
                 ]
             },            
         ]
+    },
+    {
+        path:'/index',
+        name:'index',
+        component: ()=>import('@/pages/Index/index')
     },
     {
         path: '/test',
@@ -180,6 +229,20 @@ const router = new VueRouter({
     // routes: routes
     routes
 })
+
+let userRole = getUser().userRole
+const asyncRouter = [
+    {
+        path: '/addrouter',
+        name:'addrouter',
+        component: () => import('@/pages/Detail/mDetail'),
+        meta:{title:'专业详情'}
+    },
+]
+// if(userRole === 3){
+    router.addRoutes(asyncRouter)
+// }
+
 // 全局前置路由
 router.beforeEach((to,from,next)=>{
     console.log(to,from)

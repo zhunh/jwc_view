@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
+    <div v-if="!item.hidden" class="menu-wrapper">
+        <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)">
             <!-- <app-link :to="resolvePath(item.path)"> -->
             <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-                <item  :title="onlyOneChild.meta.title"/>
+                <item :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" :title="onlyOneChild.meta.title"/>
             </el-menu-item>
             <!-- </app-link> -->
         </template>        

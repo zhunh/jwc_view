@@ -12,18 +12,14 @@
     </el-dialog>    
     <!--操作栏-->
     <el-row>
-      <el-col :span="12" class="grid" :offset="0">
-        <el-button type="primary" plain @click="fresh" icon="el-icon-refresh-right" size="mini">刷新</el-button>
-      </el-col>
-      <el-col :span="12" class="grid" :offset="0">
-        <el-form ref="searchForm" style="float:right;">
-            <SelectYear v-model="page.selectYear"/>
-            <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
-            <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
-        </el-form>
-      </el-col>
-
+      <el-button type="primary" plain @click="fresh" icon="el-icon-refresh-right" size="mini">刷新</el-button>
+      <el-form ref="searchForm" style="float:right;">
+          <SelectYear v-model="page.selectYear"/>
+          <el-input ref="searchKey" v-model="searchKey" placeholder="请输入专业名" size="mini" style="width:150px;"></el-input>
+          <el-button type="primary" icon="el-icon-search" size="mini" @click="search">搜索</el-button>
+      </el-form>
     </el-row>
+
     <el-row>
       <el-col>
         <el-table
@@ -93,7 +89,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column fixed="right" label="操作">
+          <el-table-column v-if="userRole == 3" fixed="right" label="操作">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-button type="text"  size="mini" @click="confirmEdit(row)">确定</el-button>
@@ -137,6 +133,8 @@
 <script>
 import { fetchList,updateTa,deleteTa } from "@/api/teachingAward";
 import SelectYear from "@/components/SelectYear"
+import getUser from '@/utils/GetCurrentUser'
+
 export default {
   data() {
     return {
@@ -157,6 +155,11 @@ export default {
     };
   },
   components:{ SelectYear },
+  computed:{
+    userRole(){
+      return getUser().role
+    }
+  },  
   methods: {
     handleClick(obj) {
       this.dialogVisible = true;
@@ -274,13 +277,7 @@ export default {
 </script>
 <style scoped>
   .el-row {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* background-color: rgb(214, 203, 203); */
-  }
-  .el-col {
-    border-radius: 4px;
-  }
-  .el-col {
-    border-radius: 4px;
   }
 </style>

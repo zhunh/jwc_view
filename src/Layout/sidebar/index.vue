@@ -8,7 +8,7 @@
             :unique-opened="false"
             router
         >           
-            <SiderbarItem v-for="route in routes" :key="route.path" :item="route" :base-path="'/major/'+ route.path"></SiderbarItem>
+            <SiderbarItem v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"></SiderbarItem>
         </el-menu>
     </el-scrollbar>
 </el-collapse-transition>    

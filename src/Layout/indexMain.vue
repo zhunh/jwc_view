@@ -24,7 +24,6 @@
                 </el-card>
                 <el-footer><Footer/></el-footer>
             </el-main>   
-            
         </el-container>
     </el-container>
     </div>
@@ -81,16 +80,9 @@ export default {
   body > .el-container {
     margin-bottom: 40px;
   }
-  
   /* .el-row {
     margin-bottom: 20px;
   } */
-  .el-col {
-    border-radius: 4px;
-  }
-  .el-col {
-    border-radius: 4px;
-  }
   /* .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;

@@ -15,12 +15,13 @@ export default {
             let that = this.$router
             //点击事件
             myChart.on('click', function (params) {
+                let aca = params.name
                 that.push({  
-                    path: '/adetail',   
-                    name: 'adetail',  
-                    params: {   
-                        aca: params.name,   
-                    }  
+                    path: '/adetail/' + aca,   
+                    // name: 'adetail',  
+                    // params: {   
+                    //     aca: params.name,   
+                    // }  
                     /*query: {  
                         key: 'key',   
                         msgKey: this.msg  
@@ -32,6 +33,10 @@ export default {
             getMgba({}).then(re=>{
                 this.mab = re.result 
                 let option = {
+                    title:{
+                        text:'专业分布',
+                        left: 'center'
+                    },
                     legend: {
                         type: 'scroll',
                         orient: 'vertical',

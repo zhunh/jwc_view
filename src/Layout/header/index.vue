@@ -9,17 +9,16 @@
         text-color="#fff"
         active-text-color="#ffd04b"
         router>
-        <el-menu-item index="/">首页
+        <el-menu-item index="/index">首页
         </el-menu-item>
-        <el-menu-item index="/summary">数据汇总</el-menu-item>
-        <el-menu-item index="/major/">专业基本状态数据</el-menu-item>
-        <el-submenu index="3">
+        <el-menu-item index="/">数据</el-menu-item>
+        <!-- <el-submenu index="3">
             <template slot="title">数据</template>
             <el-menu-item index="/dataIn">采集</el-menu-item>
             <el-menu-item index="/dataManage">管理</el-menu-item>
-        </el-submenu>                
-        <el-menu-item index="5" disabled>消息中心</el-menu-item>
-        <el-menu-item index="/user">用户管理</el-menu-item>    
+        </el-submenu>                 -->
+        <!-- <el-menu-item index="5" disabled>消息中心</el-menu-item>
+        <el-menu-item index="/user">用户管理</el-menu-item>     -->
         <!-- <el-submenu index="3">
             <template slot="title">选项卡</template>
             <el-menu-item index="3-1">选项1</el-menu-item>
@@ -92,7 +91,7 @@ import getUser from '@/utils/GetCurrentUser'
       },       
     },
     mounted(){
-      this.username = getUser()
+      this.username = getUser().username
     }
   }
 </script>
