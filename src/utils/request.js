@@ -7,12 +7,14 @@ const service = axios.create({
 })
 // 请求拦截
 service.interceptors.request.use(
+    // 请求成功对响应数据作处理
     config => {
         if(sessionStorage.getItem('jwctoken')){
             config.headers['AccessToken'] = sessionStorage.getItem('jwctoken')
         }
         return config
     },
+    // 响应失败做些什么
     error => {
         console.log(error+"-jwc")
         return Promise.reject(error)
